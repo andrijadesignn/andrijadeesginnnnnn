@@ -383,7 +383,7 @@
           <h2>Brand Identity Redesign: Yumco</h2>
           <p>I create visual identities that give brands a modern look and clarity in communication. My focus is on making every brand recognizable, unique, and adapted to the market. If you are looking for a creative and reliable designer who understands how a brand speaks through visual language – you are in the right place</p>
           <button class="text-link case-study-link" type="button" data-open-case-study>View Yumco case study</button>
-          <form class="mini-form" data-mini-form>
+          <form class="mini-form" data-mini-form data-contact-endpoint="/api/contact">
             <label class="sr-only" for="quick-email">Enter your email</label>
             <input id="quick-email" type="email" name="email" placeholder="Enter your email" required>
             <button class="button hot" type="submit">Get Started</button>
@@ -566,7 +566,7 @@
           <div>
             <p class="overline">MERCH ORDER</p>
             <h3>Order merch directly</h3>
-            <p>Choose a product, add your delivery details and contact phone, and the website will prepare a complete order email for confirmation.</p>
+            <p>Choose a product, add delivery details and the website will send the order directly for confirmation. If online payment is enabled, the customer can continue to secure checkout after sending the order.</p>
             <div class="trust-grid" aria-label="Service highlights">
               <span>Custom graphics</span>
               <span>Print-ready files</span>
@@ -579,7 +579,7 @@
               <a href="https://www.behance.net/andrijadesign" target="_blank" rel="noopener">Behance</a>
             </div>
           </div>
-          <form class="order-form" data-order-form data-order-endpoint="">
+          <form class="order-form" data-order-form data-order-endpoint="/api/order">
             <label for="order-product">Product</label>
             <select id="order-product" name="product" required>
               <option value="Hoodie 01|45 EUR">Hoodie 01 — 45 EUR</option>
@@ -617,10 +617,11 @@
               <div>
                 <label for="order-payment">Preferred payment</label>
                 <select id="order-payment" name="payment">
-                  <option value="To be confirmed" selected>To be confirmed</option>
+                  <option value="Online card payment" selected>Online card payment</option>
                   <option value="PayPal">PayPal</option>
                   <option value="Bank transfer">Bank transfer</option>
                   <option value="Cash on delivery">Cash on delivery</option>
+                  <option value="To be confirmed">To be confirmed</option>
                 </select>
               </div>
             </div>
@@ -639,8 +640,10 @@
                 <input id="order-phone" name="phone" type="tel" autocomplete="tel" placeholder="+381 ..." required>
               </div>
             </div>
-            <label for="order-contact">Email or Instagram username</label>
-            <input id="order-contact" name="contact" type="text" autocomplete="email" required>
+            <label for="order-contact">Email address</label>
+            <input id="order-contact" name="contact" type="email" autocomplete="email" required>
+            <label for="order-instagram">Instagram username</label>
+            <input id="order-instagram" name="instagram" type="text" placeholder="@username, optional">
             <div class="form-row">
               <div>
                 <label for="order-country">Country</label>
@@ -731,7 +734,7 @@
           <h2>Let’s talk business</h2>
           <p>Now that you know a lot about me, let me know if you are interested to work with me.</p>
         </div>
-        <form class="contact-form reveal" data-contact-form>
+        <form class="contact-form reveal" data-contact-form data-contact-endpoint="/api/contact">
           <label for="name">Name</label>
           <input id="name" name="name" type="text" autocomplete="name" required>
           <label for="email">Email Address</label>
@@ -957,7 +960,7 @@
   <div class="project-modal" data-project-modal aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="project-modal__backdrop" data-close-project></div>
     <div class="project-modal__panel">
-      <button class="project-modal__close" type="button" data-close-project aria-label="Close project preview">Ã—</button>
+      <button class="project-modal__close" type="button" data-close-project aria-label="Close project preview">&#215;</button>
       <div class="project-modal__image-wrap">
         <img data-modal-image src="./assets/project-infernal-gaze.jpeg" alt="">
       </div>
@@ -976,7 +979,7 @@
   <div class="illustrations-modal" data-illustrations-modal aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="illustrations-modal-title">
     <div class="illustrations-modal__backdrop" data-close-illustrations></div>
     <div class="illustrations-modal__panel">
-      <button class="project-modal__close" type="button" data-close-illustrations aria-label="Close illustration folder">Ã—</button>
+      <button class="project-modal__close" type="button" data-close-illustrations aria-label="Close illustration folder">&#215;</button>
       <div class="illustrations-modal__header">
         <p class="overline">ILLUSTRATION FOLDER</p>
         <h2 id="illustrations-modal-title">Concept Art Illustrations Vol.1</h2>
@@ -1031,7 +1034,7 @@
   <div class="work-modal" data-work-modal aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="work-modal-title">
     <div class="work-modal__backdrop" data-close-work></div>
     <div class="work-modal__panel">
-      <button class="project-modal__close" type="button" data-close-work aria-label="Close work collection">Ã—</button>
+      <button class="project-modal__close" type="button" data-close-work aria-label="Close work collection">&#215;</button>
       <div class="work-modal__header">
         <p class="overline" data-work-kicker>WORK COLLECTION</p>
         <h2 id="work-modal-title" data-work-title>Selected work</h2>
@@ -1045,7 +1048,7 @@
   <div class="brochure-modal" data-brochure-modal aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="brochure-modal-title">
     <div class="brochure-modal__backdrop" data-close-brochure></div>
     <div class="brochure-modal__panel">
-      <button class="project-modal__close" type="button" data-close-brochure aria-label="Close brochure preview">Ã—</button>
+      <button class="project-modal__close" type="button" data-close-brochure aria-label="Close brochure preview">&#215;</button>
       <div class="brochure-modal__header">
         <p class="overline">COMPLETE PROJECT</p>
         <h2 id="brochure-modal-title">Cycling Bike 2024 – Creative Brochure Design</h2>
@@ -1072,7 +1075,7 @@
   <div class="case-study-modal" data-case-study-modal aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="case-study-modal-title">
     <div class="case-study-modal__backdrop" data-close-case-study></div>
     <div class="case-study-modal__panel">
-      <button class="project-modal__close" type="button" data-close-case-study aria-label="Close Yumco case study">Ã—</button>
+      <button class="project-modal__close" type="button" data-close-case-study aria-label="Close Yumco case study">&#215;</button>
       <div class="case-study-modal__header">
         <p class="overline">CASE STUDY</p>
         <h2 id="case-study-modal-title">Brand Identity Redesign: Yumco</h2>

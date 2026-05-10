@@ -393,17 +393,31 @@ revealItems.forEach((item) => {
   }
 });
 
-function openMail({ name = "", email = "", message = "", subject }) {
-  const lines = [];
+function formDataToObject(formData) {
+  return Object.fromEntries([...formData.entries()].map(([key, value]) => [key, String(value).trim()]));
+}
 
-  if (name) lines.push(`Name: ${name}`);
-  if (email) lines.push(`Email: ${email}`);
-  if (message) lines.push("", message);
+async function submitToEndpoint(endpoint, payload) {
+  if (!endpoint) {
+    throw new Error("Missing endpoint");
+  }
 
-  const mailto = new URL(`mailto:${contactEmail}`);
-  mailto.searchParams.set("subject", subject);
-  mailto.searchParams.set("body", lines.join("\n"));
-  window.location.href = mailto.toString();
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  });
+
+  const result = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(result.message || "Direct sending is not configured yet.");
+  }
+
+  return result;
 }
 
 function getSelectedOrder() {
@@ -428,7 +442,7 @@ function updateOrderSummary() {
   orderSummary.innerHTML = `
     <span>Selected: ${order.product || "Choose product"}${order.price ?` / ${order.price}` : ""}</span>
     <strong>Total: ${order.totalLabel}</strong>
-    <small>Size: ${orderSize?.value || "Not selected"} Â· Quantity: ${order.quantity} Â· Color: ${orderColor?.value || "To be confirmed"} Â· Payment: ${orderPayment?.value || "To be confirmed"}. Final shipping details are confirmed before production.</small>
+    <small>Size: ${orderSize?.value || "Not selected"} · Quantity: ${order.quantity} · Color: ${orderColor?.value || "To be confirmed"} · Payment: ${orderPayment?.value || "To be confirmed"}. Final shipping details are confirmed before production.</small>
   `;
 }
 
@@ -642,37 +656,36 @@ if (photoTrack && photoCards.length) {
   });
 }
 
-contactForm?.addEventListener("submit", (event) => {
+contactForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const data = new FormData(contactForm);
-  const name = String(data.get("name") || "").trim();
-  const email = String(data.get("email") || "").trim();
-  const projectType = String(data.get("projectType") || "").trim();
-  const timeline = String(data.get("timeline") || "").trim();
-  const budget = String(data.get("budget") || "").trim();
-  const message = String(data.get("message") || "").trim();
+  const payload = formDataToObject(data);
+  const name = payload.name || "";
+  const email = payload.email || "";
+  const message = payload.message || "";
 
   if (!name || !email || !message) {
     contactNote.textContent = "Please fill in your name, email, and message.";
     return;
   }
 
-  openMail({
-    name,
-    email,
-    message: [
-      `Project type: ${projectType || "Not selected"}`,
-      `Timeline: ${timeline || "Not selected"}`,
-      `Budget / scope: ${budget || "Not added"}`,
-      "",
-      "Message:",
-      message
-    ].join("\n"),
-    subject: `Portfolio inquiry from ${name}`
-  });
+  const button = contactForm.querySelector("button[type='submit']");
+  button.disabled = true;
+  contactNote.textContent = "Sending your message directly...";
 
-  contactNote.textContent = "Opening your email app so you can send the message.";
+  try {
+    await submitToEndpoint(contactForm.dataset.contactEndpoint || "/api/contact", {
+      type: "project",
+      ...payload
+    });
+    contactForm.reset();
+    contactNote.textContent = "Message sent. You and Andrija will receive an email confirmation.";
+  } catch (error) {
+    contactNote.textContent = `${error.message} On Vercel, add RESEND_API_KEY to enable automatic emails.`;
+  } finally {
+    button.disabled = false;
+  }
 });
 
 document.querySelectorAll("[data-order-product]").forEach((button) => {
@@ -713,29 +726,31 @@ orderProduct?.addEventListener("change", () => {
 
 updateOrderSummary();
 
-orderForm?.addEventListener("submit", (event) => {
+orderForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const data = new FormData(orderForm);
-  const [product, price] = String(data.get("product") || "").split("|");
+  const payload = formDataToObject(data);
+  const [product, price] = String(payload.product || "").split("|");
   const order = getSelectedOrder();
-  const size = String(data.get("size") || "").trim();
-  const quantity = String(data.get("quantity") || "1").trim();
-  const color = String(data.get("color") || "").trim();
-  const payment = String(data.get("payment") || "").trim();
-  const name = String(data.get("name") || "").trim();
-  const phone = String(data.get("phone") || "").trim();
-  const contact = String(data.get("contact") || "").trim();
-  const country = String(data.get("country") || "").trim();
-  const city = String(data.get("city") || "").trim();
-  const street = String(data.get("street") || "").trim();
-  const streetNumber = String(data.get("streetNumber") || "").trim();
-  const postal = String(data.get("postal") || "").trim();
-  const apartment = String(data.get("apartment") || "").trim();
-  const message = String(data.get("message") || "").trim();
+  const size = payload.size || "";
+  const quantity = payload.quantity || "1";
+  const color = payload.color || "";
+  const payment = payload.payment || "";
+  const name = payload.name || "";
+  const phone = payload.phone || "";
+  const contact = payload.contact || "";
+  const instagram = payload.instagram || "";
+  const country = payload.country || "";
+  const city = payload.city || "";
+  const street = payload.street || "";
+  const streetNumber = payload.streetNumber || "";
+  const postal = payload.postal || "";
+  const apartment = payload.apartment || "";
+  const message = payload.message || "";
 
   if (!product || !name || !phone || !contact || !quantity || !country || !city || !street || !streetNumber || !postal) {
-    orderNote.textContent = "Please fill in product, name, phone, contact, full address, and quantity.";
+    orderNote.textContent = "Please fill in product, name, phone, email, full address, and quantity.";
     return;
   }
 
@@ -751,7 +766,8 @@ orderForm?.addEventListener("submit", (event) => {
     "Customer:",
     `Name: ${name}`,
     `Phone: ${phone}`,
-    `Contact: ${contact}`,
+    `Email: ${contact}`,
+    `Instagram: ${instagram || "Not added"}`,
     "",
     "Delivery address:",
     `Country: ${country}`,
@@ -764,48 +780,42 @@ orderForm?.addEventListener("submit", (event) => {
     "Additional note:",
     message || "No note added."
   ].join("\n");
-  const orderEndpoint = orderForm.dataset.orderEndpoint?.trim();
-  data.set("estimatedTotal", order.totalLabel);
-  data.set("colorPreference", color || "Not added");
-  data.set("preferredPayment", payment || "To be confirmed");
-  data.set("orderSummary", orderMessage);
+  const button = orderForm.querySelector("button[type='submit']");
+  button.disabled = true;
+  orderNote.textContent = "Sending your order directly...";
 
-  if (orderEndpoint) {
-    orderNote.textContent = "Sending your order request...";
-
-    fetch(orderEndpoint, {
-      method: "POST",
-      body: data,
-      headers: { Accept: "application/json" }
-    }).then((response) => {
-      if (!response.ok) throw new Error("Order endpoint error");
-      orderForm.reset();
-      updateOrderSummary();
-      orderNote.textContent = "Order request sent. I will contact you to confirm the details.";
-    }).catch(() => {
-      orderNote.textContent = "Direct sending failed, opening your email app instead.";
-      openMail({
-        name,
-        email: contact,
-        subject: `Merch order: ${product}`,
-        message: orderMessage
-      });
+  try {
+    const result = await submitToEndpoint(orderForm.dataset.orderEndpoint || "/api/order", {
+      ...payload,
+      product,
+      price,
+      estimatedTotal: order.totalLabel,
+      colorPreference: color || "Not added",
+      preferredPayment: payment || "To be confirmed",
+      orderSummary: orderMessage
     });
 
-    return;
+    orderForm.reset();
+    updateOrderSummary();
+
+    if (result.paymentUrl) {
+      orderNote.innerHTML = `Order sent. Continue to secure payment: <a href="${result.paymentUrl}">Open payment</a>`;
+      window.setTimeout(() => {
+        window.location.href = result.paymentUrl;
+      }, 1200);
+    } else if (result.paymentPending) {
+      orderNote.textContent = "Order sent. Online payment is not connected yet, so Andrija will confirm payment details manually.";
+    } else {
+      orderNote.textContent = "Order sent. You and Andrija will receive an email confirmation.";
+    }
+  } catch (error) {
+    orderNote.textContent = `${error.message} On Vercel, add RESEND_API_KEY and optional STRIPE_SECRET_KEY to enable automatic order emails and payment.`;
+  } finally {
+    button.disabled = false;
   }
-
-  openMail({
-    name,
-    email: contact,
-    subject: `Merch order: ${product}`,
-    message: orderMessage
-  });
-
-  orderNote.textContent = "Opening your email app with the merch order request. Add a form endpoint later for direct sending.";
 });
 
-miniForm?.addEventListener("submit", (event) => {
+miniForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const data = new FormData(miniForm);
@@ -816,13 +826,27 @@ miniForm?.addEventListener("submit", (event) => {
     return;
   }
 
-  openMail({
-    email,
-    message: "Hi Andrija, I’m interested in starting a brand identity project.",
-    subject: "Brand identity project inquiry"
-  });
+  const button = miniForm.querySelector("button[type='submit']");
+  button.disabled = true;
+  miniNote.textContent = "Sending your project inquiry directly...";
 
-  miniNote.textContent = "Opening your email app with a project inquiry.";
+  try {
+    await submitToEndpoint(miniForm.dataset.contactEndpoint || "/api/contact", {
+      type: "quick",
+      name: "Website visitor",
+      email,
+      projectType: "Brand identity",
+      timeline: "Flexible",
+      budget: "",
+      message: "Hi Andrija, I’m interested in starting a brand identity project."
+    });
+    miniForm.reset();
+    miniNote.textContent = "Inquiry sent. You will receive an email confirmation.";
+  } catch (error) {
+    miniNote.textContent = `${error.message} On Vercel, add RESEND_API_KEY to enable automatic emails.`;
+  } finally {
+    button.disabled = false;
+  }
 });
 
 document.addEventListener("keydown", (event) => {
