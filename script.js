@@ -416,7 +416,7 @@ async function submitToEndpoint(endpoint, payload) {
   const result = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    throw new Error(result.message || "Direct sending is not configured yet.");
+    throw new Error(result.message || "Request failed.");
   }
 
   return result;
@@ -728,7 +728,7 @@ contactForm?.addEventListener("submit", async (event) => {
     contactForm.reset();
     contactNote.textContent = "Message sent. You and Andrija will receive an email confirmation.";
   } catch (error) {
-    contactNote.textContent = `${error.message} On Vercel, add RESEND_API_KEY to enable automatic emails.`;
+    contactNote.textContent = "Message could not be sent right now. Please try again or contact me on Instagram.";
   } finally {
     button.disabled = false;
   }
@@ -849,13 +849,11 @@ orderForm?.addEventListener("submit", async (event) => {
       window.setTimeout(() => {
         window.location.href = result.paymentUrl;
       }, 1200);
-    } else if (result.paymentPending) {
-      orderNote.textContent = "Order sent. Online payment is not connected yet, so Andrija will confirm payment details manually.";
     } else {
       orderNote.textContent = "Order sent. You and Andrija will receive an email confirmation.";
     }
   } catch (error) {
-    orderNote.textContent = `${error.message} On Vercel, add RESEND_API_KEY and optional STRIPE_SECRET_KEY to enable automatic order emails and payment.`;
+    orderNote.textContent = "Order could not be sent right now. Please try again or contact me on Instagram.";
   } finally {
     button.disabled = false;
   }
@@ -889,7 +887,7 @@ miniForm?.addEventListener("submit", async (event) => {
     miniForm.reset();
     miniNote.textContent = "Inquiry sent. You will receive an email confirmation.";
   } catch (error) {
-    miniNote.textContent = `${error.message} On Vercel, add RESEND_API_KEY to enable automatic emails.`;
+    miniNote.textContent = "Inquiry could not be sent right now. Please try again or contact me on Instagram.";
   } finally {
     button.disabled = false;
   }

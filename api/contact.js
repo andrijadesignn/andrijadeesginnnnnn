@@ -12,7 +12,7 @@ function escapeHtml(value = "") {
 
 async function sendEmail({ to, subject, html, replyTo }) {
   if (!process.env.RESEND_API_KEY) {
-    throw new Error("RESEND_API_KEY is missing");
+    throw new Error("Contact email service is not configured on the server.");
   }
 
   const response = await fetch("https://api.resend.com/emails", {
@@ -92,7 +92,7 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ ok: true });
   } catch (error) {
     return res.status(503).json({
-      message: "Automatic email is not configured yet.",
+      message: "Contact email could not be sent by the server.",
       detail: error.message
     });
   }

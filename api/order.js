@@ -17,7 +17,7 @@ function parsePrice(value = "") {
 
 async function sendEmail({ to, subject, html, replyTo }) {
   if (!process.env.RESEND_API_KEY) {
-    throw new Error("RESEND_API_KEY is missing");
+    throw new Error("Order email service is not configured on the server.");
   }
 
   const response = await fetch("https://api.resend.com/emails", {
@@ -155,14 +155,10 @@ module.exports = async function handler(req, res) {
       ? await createStripeCheckout({ product, price, quantity, customerEmail: email })
       : "";
 
-    return res.status(200).json({
-      ok: true,
-      paymentUrl,
-      paymentPending: wantsOnlinePayment && !paymentUrl
-    });
+    return res.status(200).json({ ok: true, paymentUrl });
   } catch (error) {
     return res.status(503).json({
-      message: "Automatic order email is not configured yet.",
+      message: "Order email could not be sent by the server.",
       detail: error.message
     });
   }
