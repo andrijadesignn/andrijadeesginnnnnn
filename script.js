@@ -33,8 +33,10 @@ let projectCards = [...document.querySelectorAll(".project-card[data-project-tit
 const feedbackTrack = document.querySelector("[data-feedback-track]");
 const feedbackCards = [...document.querySelectorAll("[data-feedback-card]")];
 const feedbackCount = document.querySelector("[data-feedback-count]");
+const photoReel = document.querySelector("[data-photo-reel]");
 const photoTrack = document.querySelector("[data-photo-track]");
 const photoCards = [...document.querySelectorAll("[data-photo-card]")];
+const photoImages = [...document.querySelectorAll("[data-photo-card] img")];
 const contactEmail = "andrijadesignnn@gmail.com";
 let currentProjectIndex = 0;
 
@@ -654,6 +656,50 @@ if (photoTrack && photoCards.length) {
     clone.classList.add("photo-frame--clone");
     photoTrack.appendChild(clone);
   });
+}
+
+function preloadPhotography() {
+  if (!photoImages.length || photoReel?.classList.contains("is-ready")) return;
+
+  let loaded = 0;
+  const done = () => {
+    loaded += 1;
+    if (loaded >= photoImages.length) {
+      photoReel?.classList.add("is-ready");
+    }
+  };
+
+  photoImages.forEach((image) => {
+    image.setAttribute("loading", "eager");
+    image.setAttribute("fetchpriority", "low");
+
+    if (image.complete && image.naturalWidth > 0) {
+      done();
+      return;
+    }
+
+    const preloader = new Image();
+    preloader.onload = done;
+    preloader.onerror = done;
+    preloader.src = image.currentSrc || image.src;
+  });
+}
+
+if (photoReel && photoImages.length) {
+  if ("IntersectionObserver" in window) {
+    const photoObserver = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        preloadPhotography();
+        photoObserver.disconnect();
+      }
+    }, { rootMargin: "1400px 0px" });
+
+    photoObserver.observe(photoReel);
+  }
+
+  window.addEventListener("load", () => {
+    window.setTimeout(preloadPhotography, 900);
+  }, { once: true });
 }
 
 contactForm?.addEventListener("submit", async (event) => {
