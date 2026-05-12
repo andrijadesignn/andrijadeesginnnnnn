@@ -17,6 +17,7 @@ function parsePrice(value = "") {
 
 async function sendEmail({ to, subject, html, replyTo }) {
   if (!process.env.RESEND_API_KEY) {
+    // Developer note: add RESEND_API_KEY in Vercel Environment Variables to enable automatic merch order emails.
     throw new Error("Order email service is not configured on the server.");
   }
 
@@ -92,6 +93,7 @@ module.exports = async function handler(req, res) {
   const phone = String(body.phone || "").trim();
   const instagram = String(body.instagram || "Not added").trim();
   const country = String(body.country || "").trim();
+  const shippingAddress = String(body.shippingAddress || "").trim();
   const city = String(body.city || "").trim();
   const street = String(body.street || "").trim();
   const streetNumber = String(body.streetNumber || "").trim();
@@ -99,8 +101,8 @@ module.exports = async function handler(req, res) {
   const apartment = String(body.apartment || "Not added").trim();
   const message = String(body.message || "No note added.").trim();
 
-  if (!product || !name || !email || !phone || !country || !city || !street || !streetNumber || !postal) {
-    return res.status(400).json({ message: "Product, name, email, phone and full delivery address are required." });
+  if (!product || !name || !email || !phone || !country || !shippingAddress) {
+    return res.status(400).json({ message: "Product, name, email, phone, country and shipping address are required." });
   }
 
   const rows = [
@@ -115,12 +117,13 @@ module.exports = async function handler(req, res) {
     ["Email", email],
     ["Phone", phone],
     ["Instagram", instagram],
-    ["Country", country],
-    ["City", city],
-    ["Street", street],
-    ["Street number", streetNumber],
-    ["Postal code", postal],
-    ["Apartment / floor", apartment],
+    ["Country", country || "Not added"],
+    ["Shipping address", shippingAddress || "Not added"],
+    ["City", city || "Not added"],
+    ["Street", street || "Not added"],
+    ["Street number", streetNumber || "Not added"],
+    ["Postal code", postal || "Not added"],
+    ["Apartment / floor", apartment || "Not added"],
     ["Additional note", message]
   ];
 
@@ -138,15 +141,15 @@ module.exports = async function handler(req, res) {
   try {
     await sendEmail({
       to: OWNER_EMAIL,
-      subject: `New merch order - ${product}`,
-      html: `<h2>New merch order</h2>${table}`,
+      subject: "New Merch Order Request",
+      html: `<h2>New Merch Order Request</h2>${table}`,
       replyTo: email
     });
 
     await sendEmail({
       to: email,
-      subject: `Merch order received - ${product}`,
-      html: `<h2>Your merch order was received</h2><p>Hi ${escapeHtml(name)}, your order has been received. Andrija will confirm availability, delivery and payment details before production.</p>${table}`,
+      subject: "Your Merch Order Request Has Been Received",
+      html: `<h2>Your Merch Order Request Has Been Received</h2><p>Hi ${escapeHtml(name)}, your order request has been received. I will confirm availability, shipping and payment details shortly.</p>${table}`,
       replyTo: OWNER_EMAIL
     });
 

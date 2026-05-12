@@ -10,11 +10,14 @@ const miniNote = document.querySelector("[data-mini-note]");
 const orderForm = document.querySelector("[data-order-form]");
 const orderNote = document.querySelector("[data-order-note]");
 const orderProduct = document.querySelector("#order-product");
+const orderPrice = document.querySelector("#order-price");
 const orderSize = document.querySelector("#order-size");
 const orderQuantity = document.querySelector("#order-qty");
 const orderColor = document.querySelector("#order-color");
-const orderPayment = document.querySelector("#order-payment");
+const orderCountry = document.querySelector("#order-country");
+const orderShipping = document.querySelector("#order-shipping");
 const orderSummary = document.querySelector("[data-order-summary]");
+const merchOrderModal = document.querySelector("[data-merch-order-modal]");
 const projectModal = document.querySelector("[data-project-modal]");
 const illustrationsModal = document.querySelector("[data-illustrations-modal]");
 const workModal = document.querySelector("[data-work-modal]");
@@ -32,7 +35,6 @@ const workGallery = document.querySelector("[data-work-gallery]");
 let projectCards = [...document.querySelectorAll(".project-card[data-project-title][data-project-image]")];
 const feedbackTrack = document.querySelector("[data-feedback-track]");
 const feedbackCards = [...document.querySelectorAll("[data-feedback-card]")];
-const feedbackCount = document.querySelector("[data-feedback-count]");
 const photoReel = document.querySelector("[data-photo-reel]");
 const photoTrack = document.querySelector("[data-photo-track]");
 const photoCards = [...document.querySelectorAll("[data-photo-card]")];
@@ -95,6 +97,68 @@ const workCollections = {
         title: "Lemone Sicilia Final Presentation",
         image: "./assets/work-optimized/lemone-sicilia/lemone-sicilia-07.jpg",
         description: "Final visual presentation tying together the Mediterranean brand atmosphere."
+      }
+    ]
+  },
+  yumco: {
+    kicker: "BRAND IDENTITY / REDESIGN",
+    title: "Yumco Brand Identity Redesign",
+    description: "An expanded Yumco identity presentation with logo redesign direction, mockup applications and a cleaner visual system for professional brand use.",
+    highlights: [
+      {
+        label: "Goal",
+        text: "Refresh the identity while keeping the brand recognizable and easier to apply across materials."
+      },
+      {
+        label: "Approach",
+        text: "Use cleaner typography, stronger structure and practical mockup applications to show the system in context."
+      },
+      {
+        label: "Result",
+        text: "A fuller case-study presentation with multiple identity touchpoints and polished brand visuals."
+      }
+    ],
+    items: [
+      {
+        title: "Yumco Identity Presentation 01",
+        image: "./assets/work-optimized/yumco/yumco-01.jpg",
+        description: "Main Yumco identity presentation showing the redesigned brand direction.",
+        format: "landscape"
+      },
+      {
+        title: "Yumco Identity Presentation 02",
+        image: "./assets/work-optimized/yumco/yumco-02.jpg",
+        description: "Supporting brand layout with clean structure and professional mockup presentation.",
+        format: "landscape"
+      },
+      {
+        title: "Yumco Vertical Application",
+        image: "./assets/work-optimized/yumco/yumco-03.jpg",
+        description: "Vertical brand application prepared as part of the complete identity system."
+      },
+      {
+        title: "Yumco Identity Presentation 04",
+        image: "./assets/work-optimized/yumco/yumco-04.jpg",
+        description: "Additional brand touchpoint showing how the redesign works across presentation formats.",
+        format: "landscape"
+      },
+      {
+        title: "Yumco Identity Presentation 05",
+        image: "./assets/work-optimized/yumco/yumco-05.jpg",
+        description: "Mockup-focused view that strengthens the overall brand presence.",
+        format: "landscape"
+      },
+      {
+        title: "Yumco Identity Presentation 06",
+        image: "./assets/work-optimized/yumco/yumco-06.jpg",
+        description: "Clean application layout with a more serious and consistent brand feeling.",
+        format: "landscape"
+      },
+      {
+        title: "Yumco Final Brand Application",
+        image: "./assets/work-optimized/yumco/yumco-07.jpg",
+        description: "Final visual application from the Yumco redesign set.",
+        format: "landscape"
       }
     ]
   },
@@ -206,6 +270,63 @@ const workCollections = {
       }
     ]
   },
+  magazineCovers: {
+    kicker: "EDITORIAL / MAGAZINE COVER DESIGN",
+    title: "Magazine Covers",
+    description: "Magazine cover and editorial front-page concepts focused on culture, Serbian heritage, visual hierarchy and strong cover presence.",
+    highlights: [
+      {
+        label: "Goal",
+        text: "Create magazine covers that feel cultural, clear and visually strong from the first page."
+      },
+      {
+        label: "Approach",
+        text: "Use strong subject focus, controlled typography and balanced editorial spacing."
+      },
+      {
+        label: "Result",
+        text: "A refined magazine cover set that expands the editorial design archive."
+      }
+    ],
+    items: [
+      {
+        title: "Paja Jovanović Magazine Front Page",
+        image: "./assets/work-optimized/magazine-covers/magazine-paja-jovanovic-front.jpg",
+        description: "Editorial front page concept with classic Serbian art direction and clean hierarchy.",
+        format: "landscape"
+      },
+      {
+        title: "Manastir Studenica Magazine Front Page",
+        image: "./assets/work-optimized/magazine-covers/magazine-manastir-studenica-front.jpg",
+        description: "Cultural magazine front page focused on heritage, atmosphere and balanced type.",
+        format: "landscape"
+      },
+      {
+        title: "Manastir Studenica Magazine Layout",
+        image: "./assets/work-optimized/magazine-covers/magazine-manastir-studenica-layout.jpg",
+        description: "Magazine layout concept with clear editorial rhythm and visual storytelling.",
+        format: "landscape"
+      },
+      {
+        title: "Nadežda Petrović Magazine Cover",
+        image: "./assets/work-optimized/magazine-covers/magazine-nadezda-petrovic.jpg",
+        description: "Cover concept built around strong portrait presence, color and readable composition.",
+        format: "landscape"
+      },
+      {
+        title: "Paja Jovanović Magazine Cover",
+        image: "./assets/work-optimized/magazine-covers/magazine-paja-jovanovic-cover.jpg",
+        description: "Magazine cover with classic art inspiration and a polished editorial look.",
+        format: "landscape"
+      },
+      {
+        title: "Srpski Žurnal Magazine Cover",
+        image: "./assets/work-optimized/magazine-covers/magazine-srpski-zurnal.jpg",
+        description: "Editorial cover direction for Srpski Žurnal with bold title treatment and clean structure.",
+        format: "landscape"
+      }
+    ]
+  },
   monographs: {
     kicker: "EDITORIAL / MONOGRAPH DESIGN",
     title: "Monographs",
@@ -253,6 +374,72 @@ const workCollections = {
         title: "Dragan Bojanić Gidra Monograph Presentation",
         image: "./assets/work-optimized/monographs/dragan-bojanic-gidra-presentation.jpg",
         description: "Presentation spread for the Dragan Bojanić Gidra monograph, focused on visual storytelling and publication clarity.",
+        format: "landscape"
+      }
+    ]
+  },
+  newspaperAdvertising: {
+    kicker: "ADVERTISING / NEWSPAPER DESIGN",
+    title: "Newspaper Advertising Design",
+    description: "Ford Mustang newspaper advertising concepts created with strong print hierarchy, automotive energy and campaign-style presentation.",
+    highlights: [
+      {
+        label: "Goal",
+        text: "Show how a bold automotive message can work inside a newspaper advertising format."
+      },
+      {
+        label: "Approach",
+        text: "Use strong contrast, product focus and clean copy hierarchy for quick print readability."
+      },
+      {
+        label: "Result",
+        text: "Two advertising layouts that add a sharper campaign direction to the print portfolio."
+      }
+    ],
+    items: [
+      {
+        title: "Ford Mustang Newspaper Advertising 01",
+        image: "./assets/work-optimized/newspaper-advertising/ford-mustang-advertising-01.jpg",
+        description: "Automotive newspaper ad layout with bold product focus and print-ready visual hierarchy.",
+        format: "landscape"
+      },
+      {
+        title: "Ford Mustang Newspaper Advertising 02",
+        image: "./assets/work-optimized/newspaper-advertising/ford-mustang-advertising-02.jpg",
+        description: "Second Ford Mustang newspaper advertising direction with strong contrast and campaign impact.",
+        format: "landscape"
+      }
+    ]
+  },
+  currencyRedesign: {
+    kicker: "PRINT CONCEPT / CURRENCY REDESIGN",
+    title: "Serbia Banknote Redesign",
+    description: "A Serbian banknote redesign concept exploring cultural identity, detailed print composition and a cleaner modern presentation.",
+    highlights: [
+      {
+        label: "Goal",
+        text: "Create a more contemporary banknote concept while keeping a strong Serbian cultural feeling."
+      },
+      {
+        label: "Approach",
+        text: "Balance detailed ornament, portrait focus and structured typography for a believable print concept."
+      },
+      {
+        label: "Result",
+        text: "Two polished currency redesign visuals that strengthen the experimental print archive."
+      }
+    ],
+    items: [
+      {
+        title: "Serbia Banknote Redesign 01",
+        image: "./assets/work-optimized/currency-redesign/serbia-banknote-redesign-01.jpg",
+        description: "Serbian banknote redesign concept with detailed cultural styling and refined composition.",
+        format: "landscape"
+      },
+      {
+        title: "Serbia Banknote Redesign 02",
+        image: "./assets/work-optimized/currency-redesign/serbia-banknote-redesign-02.jpg",
+        description: "Second banknote redesign presentation showing the concept as a complete print system.",
         format: "landscape"
       }
     ]
@@ -423,7 +610,8 @@ async function submitToEndpoint(endpoint, payload) {
 }
 
 function getSelectedOrder() {
-  const [product, price = ""] = String(orderProduct?.value || "").split("|");
+  const product = String(orderProduct?.value || "");
+  const price = String(orderPrice?.value || "Custom quote");
   const quantity = Math.max(Number(orderQuantity?.value || 1), 1);
   const unit = Number(price.match(/\d+([.,]\d+)?/)?.[0]?.replace(",", ".") || 0);
   const currency = price.replace(/[\d\s.,]/g, "").trim() || "EUR";
@@ -442,10 +630,38 @@ function updateOrderSummary() {
 
   const order = getSelectedOrder();
   orderSummary.innerHTML = `
-    <span>Selected: ${order.product || "Choose product"}${order.price ?` / ${order.price}` : ""}</span>
-    <strong>Total: ${order.totalLabel}</strong>
-    <small>Size: ${orderSize?.value || "Not selected"} · Quantity: ${order.quantity} · Color: ${orderColor?.value || "To be confirmed"} · Payment: ${orderPayment?.value || "To be confirmed"}. Final shipping details are confirmed before production.</small>
+    <span>Selected: ${order.product || "Choose product"}</span>
+    <strong>${order.price && order.price !== "Custom quote" ? `Estimated total: ${order.totalLabel}` : "Custom quote"}</strong>
+    <small>Size: ${orderSize?.value || "Not selected"} · Quantity: ${order.quantity} · Color: ${orderColor?.value || "To be confirmed"}. Final scope, production and delivery details are confirmed directly.</small>
   `;
+}
+
+function openOrderModal({ product, price, size, color, quantity }) {
+  if (!merchOrderModal || !orderForm) return;
+
+  if (orderProduct) orderProduct.value = product || "";
+  if (orderPrice) orderPrice.value = price || "Custom quote";
+  if (orderSize) orderSize.value = size || "M";
+  if (orderColor) orderColor.value = color || "Black";
+  if (orderQuantity) orderQuantity.value = Math.max(Number(quantity || 1), 1);
+
+  updateOrderSummary();
+  merchOrderModal.classList.add("is-open");
+  merchOrderModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+  window.setTimeout(() => orderForm.querySelector("#order-name")?.focus(), 180);
+
+  if (orderNote) {
+    orderNote.textContent = "";
+  }
+}
+
+function closeOrderModal() {
+  if (!merchOrderModal) return;
+
+  merchOrderModal.classList.remove("is-open");
+  merchOrderModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
 }
 
 function openProject(projectCard) {
@@ -610,7 +826,9 @@ document.querySelectorAll("[data-close-project]").forEach((button) => {
 document.querySelector("[data-prev-project]")?.addEventListener("click", () => showProjectByStep(-1));
 document.querySelector("[data-next-project]")?.addEventListener("click", () => showProjectByStep(1));
 
-document.querySelector("[data-open-illustrations]")?.addEventListener("click", openIllustrations);
+document.querySelectorAll("[data-open-illustrations]").forEach((button) => {
+  button.addEventListener("click", openIllustrations);
+});
 
 document.querySelectorAll("[data-close-illustrations]").forEach((button) => {
   button.addEventListener("click", closeIllustrations);
@@ -624,13 +842,17 @@ document.querySelectorAll("[data-close-work]").forEach((button) => {
   button.addEventListener("click", closeWorkCollection);
 });
 
-document.querySelector("[data-open-brochure]")?.addEventListener("click", openBrochure);
+document.querySelectorAll("[data-open-brochure]").forEach((button) => {
+  button.addEventListener("click", openBrochure);
+});
 
 document.querySelectorAll("[data-close-brochure]").forEach((button) => {
   button.addEventListener("click", closeBrochure);
 });
 
-document.querySelector("[data-open-case-study]")?.addEventListener("click", openCaseStudy);
+document.querySelectorAll("[data-open-case-study]").forEach((button) => {
+  button.addEventListener("click", openCaseStudy);
+});
 
 document.querySelectorAll("[data-close-case-study]").forEach((button) => {
   button.addEventListener("click", closeCaseStudy);
@@ -643,10 +865,6 @@ if (feedbackTrack && feedbackCards.length) {
     clone.classList.add("feedback-card--clone");
     feedbackTrack.appendChild(clone);
   });
-
-  if (feedbackCount) {
-    feedbackCount.textContent = `${feedbackCards.length} client feedback notes in motion`;
-  }
 }
 
 if (photoTrack && photoCards.length) {
@@ -709,10 +927,15 @@ contactForm?.addEventListener("submit", async (event) => {
   const payload = formDataToObject(data);
   const name = payload.name || "";
   const email = payload.email || "";
+  const company = payload.company || "";
+  const budget = payload.budget || "";
+  const deadline = payload.deadline || "";
   const message = payload.message || "";
+  const referenceLinks = payload.referenceLinks || "";
+  const preferredContact = payload.preferredContact || "";
 
-  if (!name || !email || !message) {
-    contactNote.textContent = "Please fill in your name, email, and message.";
+  if (!name || !email || !budget || !deadline || !message) {
+    contactNote.textContent = "Please fill in your name, email, budget, deadline and project description.";
     return;
   }
 
@@ -723,10 +946,14 @@ contactForm?.addEventListener("submit", async (event) => {
   try {
     await submitToEndpoint(contactForm.dataset.contactEndpoint || "/api/contact", {
       type: "project",
-      ...payload
+      ...payload,
+      company,
+      deadline,
+      referenceLinks,
+      preferredContact
     });
     contactForm.reset();
-    contactNote.textContent = "Message sent. You and Andrija will receive an email confirmation.";
+    contactNote.textContent = "Thank you for reaching out. I’ve received your project inquiry and will review the details before getting back to you with the next steps.";
   } catch (error) {
     contactNote.textContent = "Message could not be sent right now. Please try again or contact me on Instagram.";
   } finally {
@@ -737,37 +964,23 @@ contactForm?.addEventListener("submit", async (event) => {
 document.querySelectorAll("[data-order-product]").forEach((button) => {
   button.addEventListener("click", () => {
     const product = button.dataset.orderProduct || "";
-    const price = button.dataset.orderPrice || "";
-    const value = `${product}|${price}`;
+    const price = button.dataset.orderPrice || "Custom quote";
+    const card = button.closest(".merch-card");
+    const size = card?.querySelector("[data-product-size]")?.value || (product.toLowerCase().includes("badge") ?"One size" : "M");
+    const color = card?.querySelector("[data-product-color]")?.value || "Black";
+    const quantity = card?.querySelector("[data-product-quantity]")?.value || "1";
 
-    if (orderProduct) {
-      orderProduct.value = value;
-    }
-
-    if (orderSize) {
-      orderSize.value = product.toLowerCase().includes("badge") ?"One size" : "M";
-    }
-
-    updateOrderSummary();
-    document.querySelector("#merch-order")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    window.setTimeout(() => orderSize?.focus(), 450);
-    if (orderNote) {
-      orderNote.textContent = `${product} selected. Add your size and contact to send the order request.`;
-    }
+    openOrderModal({ product, price, size, color, quantity });
   });
 });
 
-[orderProduct, orderSize, orderQuantity, orderColor, orderPayment].forEach((field) => {
+[orderProduct, orderPrice, orderSize, orderQuantity, orderColor].forEach((field) => {
   field?.addEventListener("input", updateOrderSummary);
   field?.addEventListener("change", updateOrderSummary);
 });
 
-orderProduct?.addEventListener("change", () => {
-  const [product] = String(orderProduct.value || "").split("|");
-  if (orderSize && product.toLowerCase().includes("badge")) {
-    orderSize.value = "One size";
-  }
-  updateOrderSummary();
+document.querySelectorAll("[data-close-order-modal]").forEach((button) => {
+  button.addEventListener("click", closeOrderModal);
 });
 
 updateOrderSummary();
@@ -777,26 +990,21 @@ orderForm?.addEventListener("submit", async (event) => {
 
   const data = new FormData(orderForm);
   const payload = formDataToObject(data);
-  const [product, price] = String(payload.product || "").split("|");
+  const product = String(payload.product || "").trim();
+  const price = String(payload.price || "Custom quote").trim();
   const order = getSelectedOrder();
   const size = payload.size || "";
   const quantity = payload.quantity || "1";
   const color = payload.color || "";
-  const payment = payload.payment || "";
   const name = payload.name || "";
   const phone = payload.phone || "";
   const contact = payload.contact || "";
-  const instagram = payload.instagram || "";
   const country = payload.country || "";
-  const city = payload.city || "";
-  const street = payload.street || "";
-  const streetNumber = payload.streetNumber || "";
-  const postal = payload.postal || "";
-  const apartment = payload.apartment || "";
+  const shippingAddress = payload.shippingAddress || "";
   const message = payload.message || "";
 
-  if (!product || !name || !phone || !contact || !quantity || !country || !city || !street || !streetNumber || !postal) {
-    orderNote.textContent = "Please fill in product, name, phone, email, full address, and quantity.";
+  if (!product || !name || !phone || !contact || !country || !shippingAddress || !quantity) {
+    orderNote.textContent = "Please fill in product, name, email, phone, country, shipping address and quantity.";
     return;
   }
 
@@ -807,23 +1015,15 @@ orderForm?.addEventListener("submit", async (event) => {
     `Size: ${size}`,
     `Quantity: ${quantity}`,
     `Color preference: ${color || "Not added"}`,
-    `Preferred payment: ${payment || "To be confirmed"}`,
     "",
     "Customer:",
     `Name: ${name}`,
     `Phone: ${phone}`,
     `Email: ${contact}`,
-    `Instagram: ${instagram || "Not added"}`,
-    "",
-    "Delivery address:",
     `Country: ${country}`,
-    `City: ${city}`,
-    `Street: ${street}`,
-    `Street number: ${streetNumber}`,
-    `Postal code: ${postal}`,
-    `Apartment / floor: ${apartment || "Not added"}`,
+    `Shipping address: ${shippingAddress}`,
     "",
-    "Additional note:",
+    "Notes:",
     message || "No note added."
   ].join("\n");
   const button = orderForm.querySelector("button[type='submit']");
@@ -837,12 +1037,8 @@ orderForm?.addEventListener("submit", async (event) => {
       price,
       estimatedTotal: order.totalLabel,
       colorPreference: color || "Not added",
-      preferredPayment: payment || "To be confirmed",
       orderSummary: orderMessage
     });
-
-    orderForm.reset();
-    updateOrderSummary();
 
     if (result.paymentUrl) {
       orderNote.innerHTML = `Order sent. Continue to secure payment: <a href="${result.paymentUrl}">Open payment</a>`;
@@ -850,7 +1046,7 @@ orderForm?.addEventListener("submit", async (event) => {
         window.location.href = result.paymentUrl;
       }, 1200);
     } else {
-      orderNote.textContent = "Order sent. You and Andrija will receive an email confirmation.";
+      orderNote.textContent = "Thank you. Your order request has been sent. I will confirm availability, shipping and payment details shortly.";
     }
   } catch (error) {
     orderNote.textContent = "Order could not be sent right now. Please try again or contact me on Instagram.";
@@ -900,6 +1096,7 @@ document.addEventListener("keydown", (event) => {
     closeWorkCollection();
     closeBrochure();
     closeCaseStudy();
+    closeOrderModal();
   }
 
   if (projectModal?.classList.contains("is-open")) {
