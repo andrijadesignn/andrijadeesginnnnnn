@@ -1085,24 +1085,30 @@ if (photoTrack && photoCards.length) {
     const clone = card.cloneNode(true);
     clone.setAttribute("aria-hidden", "true");
     clone.classList.add("photo-frame--clone");
+    clone.querySelectorAll("img").forEach((image) => {
+      image.setAttribute("loading", "eager");
+      image.setAttribute("fetchpriority", "high");
+    });
     photoTrack.appendChild(clone);
   });
 }
 
 function preloadPhotography() {
-  if (!photoImages.length || photoReel?.classList.contains("is-ready")) return;
+  if (!photoImages.length || photoReel?.dataset.photosPreloaded === "true") return;
+
+  photoReel?.classList.add("is-ready");
+  if (photoReel) {
+    photoReel.dataset.photosPreloaded = "true";
+  }
 
   let loaded = 0;
   const done = () => {
     loaded += 1;
-    if (loaded >= photoImages.length) {
-      photoReel?.classList.add("is-ready");
-    }
   };
 
   photoImages.forEach((image) => {
     image.setAttribute("loading", "eager");
-    image.setAttribute("fetchpriority", "low");
+    image.setAttribute("fetchpriority", "high");
 
     if (image.complete && image.naturalWidth > 0) {
       done();
@@ -1117,20 +1123,14 @@ function preloadPhotography() {
 }
 
 if (photoReel && photoImages.length) {
-  if ("IntersectionObserver" in window) {
-    const photoObserver = new IntersectionObserver((entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) {
-        preloadPhotography();
-        photoObserver.disconnect();
-      }
-    }, { rootMargin: "1400px 0px" });
+  photoReel.classList.add("is-ready");
+  preloadPhotography();
 
-    photoObserver.observe(photoReel);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", preloadPhotography, { once: true });
+  } else {
+    window.requestAnimationFrame(preloadPhotography);
   }
-
-  window.addEventListener("load", () => {
-    window.setTimeout(preloadPhotography, 900);
-  }, { once: true });
 }
 
 contactForm?.addEventListener("submit", async (event) => {

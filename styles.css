@@ -3089,9 +3089,11 @@ textarea {
 
 .photo-track {
   animation: photoReel 58s linear infinite;
-  animation-play-state: paused;
+  animation-play-state: running;
   display: flex;
   gap: 18px;
+  min-height: 390px;
+  transform: translateZ(0);
   width: max-content;
   will-change: transform;
 }
@@ -3128,9 +3130,12 @@ textarea {
 }
 
 .photo-frame img {
+  display: block;
   height: 100%;
   object-fit: cover;
+  opacity: 1;
   transition: transform .7s var(--ease), filter .7s var(--ease);
+  visibility: visible;
   width: 100%;
 }
 
@@ -3162,6 +3167,13 @@ textarea {
   margin: 12px auto 0;
   transform-origin: left;
   width: min(220px, 100%);
+}
+
+.photography-section .reveal,
+.photography-heading.reveal,
+.photography-reel.reveal {
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 @keyframes photoReel {
