@@ -1344,6 +1344,58 @@ textarea {
   padding: 16px;
 }
 
+.quick-inquiry-form {
+  background:
+    linear-gradient(180deg, rgba(24, 24, 35, .9), rgba(5, 5, 10, .92)),
+    var(--level-1);
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .26);
+  display: grid;
+  gap: 14px;
+  margin: 28px 0 26px;
+  padding: 20px;
+}
+
+.quick-inquiry-form p {
+  color: var(--soft);
+  font-size: .95rem;
+  margin: 0;
+}
+
+.quick-inquiry-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr 1.1fr;
+}
+
+.quick-inquiry-form label {
+  color: var(--muted);
+  display: grid;
+  font-size: .72rem;
+  font-weight: 900;
+  gap: 7px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.quick-inquiry-form input,
+.quick-inquiry-form select {
+  background: rgba(0, 0, 0, .28);
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  font: inherit;
+  min-height: 44px;
+  padding: 0 12px;
+  width: 100%;
+}
+
+.quick-inquiry-form .button {
+  min-height: 48px;
+  width: 100%;
+}
+
 .hero-stats strong {
   color: var(--cyan);
   display: block;
@@ -3256,6 +3308,10 @@ textarea {
   transform: translateY(0);
 }
 
+.feedback-card.is-hidden {
+  display: none;
+}
+
 .feedback-card:nth-child(3n + 2) {
   transform: translateY(24px);
 }
@@ -3291,6 +3347,13 @@ textarea {
 .feedback-card span {
   color: var(--muted);
   margin-top: 4px;
+}
+
+.feedback-more {
+  display: flex;
+  margin: 34px auto 0;
+  position: relative;
+  z-index: 5;
 }
 
 @keyframes feedbackReel {
@@ -4892,6 +4955,10 @@ textarea {
 
   .work-collections__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .quick-inquiry-grid {
+    grid-template-columns: 1fr;
   }
 
   .product-controls,

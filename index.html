@@ -67,13 +67,33 @@
         <div class="copy-panel reveal">
           <div class="availability-pill"><span></span>Available for freelance projects</div>
           <p class="eyebrow">Graphic Designer / Visual Identity Specialist</p>
-          <h1>I design bold visual identities, illustrations and print systems for brands that want to stand out.</h1>
-          <p>Logo design, brand identity, editorial layouts, packaging visuals, posters, illustrations and merch graphics — crafted for digital and print use.</p>
-          <p class="hero-support">Based in Serbia — available worldwide for remote design projects.</p>
+          <h1>Strategic visual identities, print design and brand visuals for businesses that want to look more professional.</h1>
+          <p>I help brands, startups and creatives build a stronger visual presence through logo design, brand identity, packaging, editorial layouts, social media graphics and print-ready design systems.</p>
+          <p class="hero-support">Based in Serbia — working remotely with clients worldwide.</p>
           <div class="hero-actions">
             <a class="button hot" href="#contact">Start a Project</a>
             <a class="button outline" href="#work">View Selected Work</a>
           </div>
+          <form class="quick-inquiry-form" data-quick-inquiry-form data-contact-endpoint="/api/contact">
+            <p>Tell me what you need and I’ll reply with the next steps.</p>
+            <div class="quick-inquiry-grid">
+              <label>Name<input name="name" type="text" autocomplete="name" required></label>
+              <label>Email<input name="email" type="email" autocomplete="email" required></label>
+              <label>What do you need?
+                <select name="projectType" required>
+                  <option value="Brand Identity">Brand Identity</option>
+                  <option value="Logo Design">Logo Design</option>
+                  <option value="Packaging">Packaging</option>
+                  <option value="Print Design">Print Design</option>
+                  <option value="Social Media">Social Media</option>
+                  <option value="Merch">Merch</option>
+                  <option value="Other">Other</option>
+                </select>
+              </label>
+            </div>
+            <button class="button form-button" type="submit">Send Quick Inquiry</button>
+            <span class="form-note" data-quick-inquiry-note aria-live="polite"></span>
+          </form>
           <div class="hero-stats" aria-label="Portfolio highlights">
             <div><strong>4+</strong><span>years in design</span></div>
             <div><strong>Brand</strong><span>identity systems</span></div>
@@ -99,9 +119,9 @@
           <h2>About Andrija</h2>
         </div>
         <div class="about-body reveal">
-          <p>I’m Andrija Živković, a graphic designer and visual identity specialist from Serbia with 4 years of experience in branding, print design, illustration and visual communication.</p>
-          <p>My work focuses on creating clear, bold and functional design systems — from logos and brand identities to editorial layouts, posters, packaging visuals and merch graphics.</p>
-          <p>I work with clients remotely and help brands build a stronger, more professional visual presence across digital and printed media.</p>
+          <p>I’m Andrija Živković, a graphic designer and visual identity specialist from Serbia with 4+ years of experience in branding, print design, illustration and visual communication.</p>
+          <p>My work is focused on building clean, bold and practical visual systems — from logos and brand identities to packaging, editorial layouts, posters, social media graphics and merch design.</p>
+          <p>I work remotely with clients who need a more professional, consistent and recognizable visual presence across digital and printed media.</p>
           <div class="about-points">
             <span>4+ Years of Design Experience</span>
             <span>Brand Identity &amp; Print Design</span>
@@ -122,18 +142,18 @@
         <div class="process-grid">
           <article class="process-card reveal">
             <span>01</span>
-            <h3>Idea Sharing</h3>
-            <p>Every project begins with understanding your vision, goals, and unique requirements. I listen closely to your ideas and inspirations, ensuring the concept we develop is aligned perfectly with your objectives and brand identity.</p>
+            <h3>Project Brief</h3>
+            <p>Every project starts with a clear brief. I review your goals, references, audience, style direction and the final use of the design.</p>
           </article>
           <article class="process-card reveal">
             <span>02</span>
-            <h3>Creative Process</h3>
-            <p>Once the concept is defined, I transform ideas into engaging visuals. I combine creativity, design principles, and technical skills to craft layouts, graphics, and illustrations that are visually striking, functional, and tailored to your project’s needs.</p>
+            <h3>Design Direction</h3>
+            <p>I create a visual direction based on your needs — combining typography, composition, color, layout and brand logic into a clear design solution.</p>
           </article>
           <article class="process-card reveal">
             <span>03</span>
-            <h3>Final Touches</h3>
-            <p>Before delivery, I meticulously refine every detail, ensuring consistency, clarity, and quality. I collaborate with you to make any adjustments necessary so that the final design not only meets but exceeds your expectations.</p>
+            <h3>Refinement &amp; Delivery</h3>
+            <p>After feedback, I refine the details and prepare clean final files for digital use, print, presentation or production.</p>
           </article>
         </div>
       </div>
@@ -309,8 +329,8 @@
         <div class="section-heading reveal">
           <p class="overline">SELECTED WORK</p>
           <h2>Selected Work</h2>
-          <p class="section-lead">A curated selection of visual identity, print, illustration and merch design projects.</p>
-          <p class="portfolio-value">Every project is built around a clear visual direction, strong composition and practical use across digital and print formats. Designed for brands, campaigns and visual systems that need to feel intentional — not generic.</p>
+          <p class="section-lead">A curated selection of identity, print, illustration, packaging and merch design projects.</p>
+          <p class="portfolio-value">Each project is presented through its final visual direction, showing how the design works across real brand, print or digital applications.</p>
         </div>
         <div class="selected-work-grid">
           <article class="selected-project selected-project--featured reveal">
@@ -358,6 +378,12 @@
               <span>Print / Layout Design</span>
               <h3>Catalog &amp; Editorial Design</h3>
               <p>Clean and structured layouts designed for catalogs, brochures and printed presentations with strong visual hierarchy.</p>
+              <div class="mini-case">
+                <p><strong>Project Type</strong> Print / Layout Design</p>
+                <p><strong>Goal</strong> Organize product and editorial information into a clear, professional printed presentation.</p>
+                <p><strong>Design Direction</strong> Clean grids, strong hierarchy and controlled visual rhythm for easy reading.</p>
+                <p><strong>Deliverables</strong> Catalog cover, back cover and interior layout previews.</p>
+              </div>
               <button class="text-link case-study-link" type="button" data-open-work-collection="catalog">View Project</button>
             </div>
           </article>
@@ -391,6 +417,12 @@
               <span>Advertising / Print Campaigns</span>
               <h3>Posters &amp; Billboard Design</h3>
               <p>Bold promotional visuals designed to communicate clearly across posters, outdoor formats and campaign materials.</p>
+              <div class="mini-case">
+                <p><strong>Project Type</strong> Advertising / Print Campaigns</p>
+                <p><strong>Goal</strong> Create strong promotional visuals that communicate quickly in public and digital spaces.</p>
+                <p><strong>Design Direction</strong> High contrast, clear hierarchy and subject-focused composition.</p>
+                <p><strong>Deliverables</strong> Poster layouts, billboard visuals and campaign-ready previews.</p>
+              </div>
               <button class="text-link case-study-link" type="button" data-open-work-collection="posterBillboard">View Project</button>
             </div>
           </article>
@@ -403,6 +435,12 @@
               <span>Apparel / Product Graphics</span>
               <h3>Merch &amp; Apparel Graphics</h3>
               <p>Graphic systems and artwork adapted for hoodies, t-shirts, badges and branded merchandise.</p>
+              <div class="mini-case">
+                <p><strong>Project Type</strong> Apparel / Product Graphics</p>
+                <p><strong>Goal</strong> Apply visual artwork to physical merch items in a clean and usable way.</p>
+                <p><strong>Design Direction</strong> Bold graphics, simple product presentation and print-ready thinking.</p>
+                <p><strong>Deliverables</strong> Hoodie, t-shirt and badge mockup previews.</p>
+              </div>
               <a class="text-link case-study-link" href="#merch">View Project</a>
             </div>
           </article>
@@ -778,9 +816,8 @@
       <div class="container contact-grid">
         <div class="reveal">
           <p class="overline">CONTACT</p>
-          <h2>Let’s Build Something Strong</h2>
-          <p>Start a Project or request a custom quote for brand identity, print, social media, packaging, web layout or merch graphics.</p>
-          <p>Share the brief, budget range and deadline so I can review the scope and reply with clear next steps.</p>
+          <h2>Let’s Build a Stronger Visual Identity</h2>
+          <p>Have a project in mind? Send a short brief with your goals, deadline and budget range. I’ll review the scope and reply with clear next steps.</p>
           <div class="contact-highlights" aria-label="Contact highlights">
             <span>Visual identities</span>
             <span>Print-ready files</span>
@@ -987,6 +1024,7 @@
               <span>Visual Identity</span>
             </article>
           </div>
+          <button class="button outline feedback-more" type="button" data-feedback-more>View More Feedback</button>
         </div>
       </div>
     </section>
@@ -994,8 +1032,8 @@
     <section class="section final-cta-section">
       <div class="container final-cta reveal">
         <p class="overline">READY TO START</p>
-        <h2>Have a brand, illustration or merch idea in mind?</h2>
-        <p>Send the idea, references and goal. I will help shape it into a clean visual direction and prepare the right design files for digital or print use.</p>
+        <h2>Let’s Build a Stronger Visual Identity</h2>
+        <p>Have a project in mind? Send a short brief with your goals, deadline and budget range. I’ll review the scope and reply with clear next steps.</p>
         <div class="hero-actions">
           <a class="button hot" href="https://www.fiverr.com/sellers/andrijaandraa/" target="_blank" rel="noopener">Hire me on Fiverr</a>
           <a class="button outline" href="https://www.instagram.com/overriftdesigns/" target="_blank" rel="noopener">Message on Instagram</a>

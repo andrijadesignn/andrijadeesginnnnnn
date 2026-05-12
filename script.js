@@ -5,6 +5,8 @@ const progress = document.querySelector(".scroll-progress");
 const backTop = document.querySelector("[data-back-top]");
 const contactForm = document.querySelector("[data-contact-form]");
 const contactNote = document.querySelector("[data-contact-note]");
+const quickInquiryForm = document.querySelector("[data-quick-inquiry-form]");
+const quickInquiryNote = document.querySelector("[data-quick-inquiry-note]");
 const miniForm = document.querySelector("[data-mini-form]");
 const miniNote = document.querySelector("[data-mini-note]");
 const orderForm = document.querySelector("[data-order-form]");
@@ -35,6 +37,7 @@ const workGallery = document.querySelector("[data-work-gallery]");
 let projectCards = [...document.querySelectorAll(".project-card[data-project-title][data-project-image]")];
 const feedbackTrack = document.querySelector("[data-feedback-track]");
 const feedbackCards = [...document.querySelectorAll("[data-feedback-card]")];
+const feedbackMore = document.querySelector("[data-feedback-more]");
 const photoReel = document.querySelector("[data-photo-reel]");
 const photoTrack = document.querySelector("[data-photo-track]");
 const photoCards = [...document.querySelectorAll("[data-photo-card]")];
@@ -858,12 +861,38 @@ document.querySelectorAll("[data-close-case-study]").forEach((button) => {
   button.addEventListener("click", closeCaseStudy);
 });
 
+function renderFeedback(expanded = false) {
+  if (!feedbackTrack || !feedbackCards.length) return;
+
+  feedbackTrack.querySelectorAll(".feedback-card--clone").forEach((clone) => clone.remove());
+
+  feedbackCards.forEach((card, index) => {
+    const shouldHide = !expanded && index >= 6;
+    card.classList.toggle("is-hidden", shouldHide);
+  });
+
+  feedbackCards
+    .filter((card, index) => expanded || index < 6)
+    .forEach((card) => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute("aria-hidden", "true");
+      clone.classList.add("feedback-card--clone");
+      clone.classList.remove("is-hidden");
+      feedbackTrack.appendChild(clone);
+    });
+
+  if (feedbackMore) {
+    feedbackMore.textContent = expanded ? "Show Less Feedback" : "View More Feedback";
+  }
+}
+
 if (feedbackTrack && feedbackCards.length) {
-  feedbackCards.forEach((card) => {
-    const clone = card.cloneNode(true);
-    clone.setAttribute("aria-hidden", "true");
-    clone.classList.add("feedback-card--clone");
-    feedbackTrack.appendChild(clone);
+  let feedbackExpanded = false;
+  renderFeedback(false);
+
+  feedbackMore?.addEventListener("click", () => {
+    feedbackExpanded = !feedbackExpanded;
+    renderFeedback(feedbackExpanded);
   });
 }
 
@@ -956,6 +985,46 @@ contactForm?.addEventListener("submit", async (event) => {
     contactNote.textContent = "Thank you for reaching out. I’ve received your project inquiry and will review the details before getting back to you with the next steps.";
   } catch (error) {
     contactNote.textContent = "Message could not be sent right now. Please try again or contact me on Instagram.";
+  } finally {
+    button.disabled = false;
+  }
+});
+
+quickInquiryForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const data = new FormData(quickInquiryForm);
+  const payload = formDataToObject(data);
+  const name = payload.name || "";
+  const email = payload.email || "";
+  const projectType = payload.projectType || "";
+
+  if (!name || !email || !projectType) {
+    quickInquiryNote.textContent = "Please add your name, email and what you need.";
+    return;
+  }
+
+  const button = quickInquiryForm.querySelector("button[type='submit']");
+  button.disabled = true;
+  quickInquiryNote.textContent = "Sending quick inquiry...";
+
+  try {
+    await submitToEndpoint(quickInquiryForm.dataset.contactEndpoint || "/api/contact", {
+      type: "quick",
+      name,
+      email,
+      projectType,
+      company: "Not added",
+      budget: "Not selected",
+      deadline: "Not selected",
+      preferredContact: "Email",
+      referenceLinks: "Not added",
+      message: `Quick project inquiry. Service needed: ${projectType}.`
+    });
+    quickInquiryForm.reset();
+    quickInquiryNote.textContent = "Quick inquiry sent. I’ll reply with the next steps.";
+  } catch (error) {
+    quickInquiryNote.textContent = "Inquiry could not be sent right now. Please try again or contact me on Instagram.";
   } finally {
     button.disabled = false;
   }
