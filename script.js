@@ -196,6 +196,47 @@ const workCollections = {
       }
     ]
   },
+  packaging: {
+    kicker: "PACKAGING / PRODUCT PRESENTATION",
+    title: "Packaging",
+    description: "Packaging and retail presentation concepts showing how identity can extend across bags, product applications and customer-facing touchpoints.",
+    highlights: [
+      {
+        label: "Goal",
+        text: "Show packaging visuals that feel practical, recognizable and ready for product presentation."
+      },
+      {
+        label: "Approach",
+        text: "Use clean mockups, strong brand placement and clear product context."
+      },
+      {
+        label: "Result",
+        text: "A focused packaging collection covering retail bags and brand application previews."
+      }
+    ],
+    items: [
+      {
+        title: "Nike Paper Bag Redesign",
+        image: "./assets/work-optimized/bags/nike-paper-bag.jpg",
+        description: "A Nike paper bag concept with a bold retail feel and strong brand recognition."
+      },
+      {
+        title: "Starbucks Paper Bag Redesign",
+        image: "./assets/work-optimized/bags/starbucks-paper-bag.jpg",
+        description: "A Starbucks paper bag redesign concept made for a cleaner, more premium product handoff."
+      },
+      {
+        title: "Lemone Sicilia Bag Mockups",
+        image: "./assets/work-optimized/lemone-sicilia/lemone-sicilia-03-bags.jpg",
+        description: "Paper bag mockup system showing how the Lemone Sicilia identity works in real packaging use."
+      },
+      {
+        title: "Lemone Sicilia Brand Presentation",
+        image: "./assets/work-optimized/lemone-sicilia/lemone-sicilia-05.jpg",
+        description: "Packaging-ready brand application with a fresh Mediterranean visual direction."
+      }
+    ]
+  },
   catalog: {
     kicker: "PRINT / CATALOG DESIGN",
     title: "Catalog",
@@ -231,6 +272,63 @@ const workCollections = {
         title: "ASUS ROG Catalog Interior Pages",
         image: "./assets/work-optimized/catalog/asus-rog-catalog-interior.jpg",
         description: "Interior spread layout built for hierarchy, readability and product presentation.",
+        format: "landscape"
+      }
+    ]
+  },
+  brochuresCatalogs: {
+    kicker: "PRINT / BROCHURE & CATALOG DESIGN",
+    title: "Brochures & Catalogs",
+    description: "Brochure and catalog layouts built around clear hierarchy, strong page rhythm and print-ready presentation.",
+    highlights: [
+      {
+        label: "Goal",
+        text: "Present information clearly across covers, spreads and print-focused layouts."
+      },
+      {
+        label: "Approach",
+        text: "Use structured grids, strong type hierarchy and balanced image placement."
+      },
+      {
+        label: "Result",
+        text: "A combined print collection covering catalog layouts and brochure presentation."
+      }
+    ],
+    items: [
+      {
+        title: "ASUS ROG Catalog Cover",
+        image: "./assets/work-optimized/catalog/asus-rog-catalog-cover.jpg",
+        description: "Front cover concept with gaming energy, strong contrast and clear product attitude.",
+        format: "landscape"
+      },
+      {
+        title: "ASUS ROG Catalog Back Cover",
+        image: "./assets/work-optimized/catalog/asus-rog-catalog-back-cover.jpg",
+        description: "Back cover continuation with consistent layout and clean brand closing.",
+        format: "landscape"
+      },
+      {
+        title: "ASUS ROG Catalog Interior Pages",
+        image: "./assets/work-optimized/catalog/asus-rog-catalog-interior.jpg",
+        description: "Interior spread layout built for hierarchy, readability and product presentation.",
+        format: "landscape"
+      },
+      {
+        title: "Cycling Bike 2024 Brochure Front",
+        image: "./assets/cycling-brochure-1.jpg",
+        description: "Creative cycling brochure cover with clean layout, vibrant visuals and strong print presentation.",
+        format: "landscape"
+      },
+      {
+        title: "Cycling Bike 2024 Brochure Back",
+        image: "./assets/cycling-brochure-2.jpg",
+        description: "Back cover design continuing the brochure system with a polished closing layout.",
+        format: "landscape"
+      },
+      {
+        title: "Cycling Bike 2024 Brochure Spread",
+        image: "./assets/cycling-brochure-3.jpg",
+        description: "Interior brochure spread focused on hierarchy, spacing and editorial clarity.",
         format: "landscape"
       }
     ]
@@ -381,6 +479,80 @@ const workCollections = {
       }
     ]
   },
+  editorialDesign: {
+    kicker: "EDITORIAL / BOOK & PUBLICATION DESIGN",
+    title: "Book Covers & Editorial",
+    description: "A broader editorial collection covering book covers, magazine covers and monograph layouts with clear hierarchy and strong visual atmosphere.",
+    highlights: [
+      {
+        label: "Goal",
+        text: "Show editorial work that communicates subject, mood and structure quickly."
+      },
+      {
+        label: "Approach",
+        text: "Combine cover composition, publication rhythm and readable type hierarchy."
+      },
+      {
+        label: "Result",
+        text: "A combined editorial archive with books, magazines and monograph design applications."
+      }
+    ],
+    items: [
+      {
+        title: "Crvena Vučica Book Cover",
+        image: "./assets/work-optimized/books/crvena-vucica-book-cover.jpg",
+        description: "A dramatic book cover concept with a strong narrative mood and red visual atmosphere.",
+        format: "landscape"
+      },
+      {
+        title: "Gost Agata Kristi Book Cover",
+        image: "./assets/work-optimized/books/gost-agata-kristi-book-cover.jpg",
+        description: "Mystery-focused cover direction with classic editorial tension and clean composition.",
+        format: "landscape"
+      },
+      {
+        title: "Krvavi mesec Book Cover",
+        image: "./assets/work-optimized/books/krvavi-mesec-book-cover.jpg",
+        description: "A dark book cover concept designed around contrast, suspense and visual impact."
+      },
+      {
+        title: "Srpski Žurnal Magazine Cover",
+        image: "./assets/work-optimized/magazine-covers/magazine-srpski-zurnal.jpg",
+        description: "Editorial cover direction for Srpski Žurnal with bold title treatment and clean structure.",
+        format: "landscape"
+      },
+      {
+        title: "Nadežda Petrović Magazine Cover",
+        image: "./assets/work-optimized/magazine-covers/magazine-nadezda-petrovic.jpg",
+        description: "Cover concept built around strong portrait presence, color and readable composition.",
+        format: "landscape"
+      },
+      {
+        title: "Branislav Nušić Monograph Cover",
+        image: "./assets/work-optimized/monographs/branislav-nusic-cover.jpg",
+        description: "Monograph cover design with a clean editorial direction and strong cultural presentation.",
+        format: "landscape"
+      },
+      {
+        title: "Dragan Bojanić Gidra Monograph Presentation",
+        image: "./assets/work-optimized/monographs/dragan-bojanic-gidra-presentation.jpg",
+        description: "Presentation spread focused on visual storytelling and publication clarity.",
+        format: "landscape"
+      },
+      {
+        title: "Serbia Banknote Redesign 01",
+        image: "./assets/work-optimized/currency-redesign/serbia-banknote-redesign-01.jpg",
+        description: "Experimental Serbian banknote redesign concept with cultural styling and detailed print composition.",
+        format: "landscape"
+      },
+      {
+        title: "Serbia Banknote Redesign 02",
+        image: "./assets/work-optimized/currency-redesign/serbia-banknote-redesign-02.jpg",
+        description: "Second banknote redesign presentation showing the concept as a complete print system.",
+        format: "landscape"
+      }
+    ]
+  },
   newspaperAdvertising: {
     kicker: "ADVERTISING / NEWSPAPER DESIGN",
     title: "Newspaper Advertising Design",
@@ -470,6 +642,18 @@ const workCollections = {
         title: "Billboard Netherlands",
         image: "./assets/work-optimized/poster-billboard/billboard-netherlands.jpg",
         description: "A billboard visual concept made for outdoor visibility and clean destination impact."
+      },
+      {
+        title: "Ford Mustang Newspaper Advertising 01",
+        image: "./assets/work-optimized/newspaper-advertising/ford-mustang-advertising-01.jpg",
+        description: "Automotive newspaper ad layout with bold product focus and print-ready visual hierarchy.",
+        format: "landscape"
+      },
+      {
+        title: "Ford Mustang Newspaper Advertising 02",
+        image: "./assets/work-optimized/newspaper-advertising/ford-mustang-advertising-02.jpg",
+        description: "Second Ford Mustang newspaper advertising direction with strong contrast and campaign impact.",
+        format: "landscape"
       },
       {
         title: "Poster Aleksa Avramović",
