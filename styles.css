@@ -769,6 +769,18 @@ body::before {
   padding-top: 34px;
 }
 
+.work-collections-section {
+  background:
+    linear-gradient(180deg, rgba(5, 5, 10, .96), rgba(14, 14, 22, .98)),
+    var(--black);
+}
+
+.work-collections-section .work-collections {
+  border-top: 0;
+  margin-top: 0;
+  padding-top: 0;
+}
+
 .work-collections__head {
   align-items: end;
   display: flex;
@@ -831,7 +843,8 @@ body::before {
 }
 
 .work-collection-card span,
-.work-collection-card strong {
+.work-collection-card strong,
+.work-collection-card small {
   display: block;
   padding: 0 16px;
 }
@@ -848,8 +861,17 @@ body::before {
 .work-collection-card strong {
   font-size: 1rem;
   line-height: 1.2;
-  padding-bottom: 18px;
   padding-top: 7px;
+}
+
+.work-collection-card small {
+  color: var(--muted);
+  font-size: .76rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  padding-bottom: 18px;
+  padding-top: 12px;
+  text-transform: uppercase;
 }
 
 .portfolio-cta {
@@ -1352,15 +1374,15 @@ textarea {
 
 .quick-inquiry-form {
   background:
-    linear-gradient(180deg, rgba(24, 24, 35, .9), rgba(5, 5, 10, .92)),
+    linear-gradient(180deg, rgba(24, 24, 35, .82), rgba(5, 5, 10, .88)),
     var(--level-1);
   border: 1px solid rgba(255, 255, 255, .12);
   border-radius: var(--radius-md);
-  box-shadow: 0 24px 70px rgba(0, 0, 0, .26);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, .22);
   display: grid;
-  gap: 14px;
-  margin: 28px 0 26px;
-  padding: 20px;
+  gap: 12px;
+  margin: 24px 0 24px;
+  padding: 16px;
 }
 
 .quick-inquiry-form p {
@@ -1398,7 +1420,7 @@ textarea {
 }
 
 .quick-inquiry-form .button {
-  min-height: 48px;
+  min-height: 46px;
   width: 100%;
 }
 
@@ -1890,6 +1912,8 @@ textarea {
     var(--level-1);
   border: 1px solid rgba(255, 255, 255, .09);
   border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
   min-height: 100%;
   padding: 28px;
   transition: border-color .3s ease, transform .35s var(--ease), box-shadow .35s var(--ease);
@@ -1948,7 +1972,7 @@ textarea {
   display: grid;
   gap: 8px;
   list-style: none;
-  margin: 0;
+  margin: 0 0 22px;
   padding: 18px 0 0;
 }
 
@@ -1957,6 +1981,12 @@ textarea {
   content: "/";
   font-weight: 800;
   margin-right: 8px;
+}
+
+.service-button {
+  margin-top: auto;
+  min-height: 46px;
+  width: 100%;
 }
 
 .projects-grid {
@@ -5187,11 +5217,11 @@ main {
   order: 1;
 }
 
-.about-section {
+.projects-section {
   order: 2;
 }
 
-.process-section {
+.services-section {
   order: 3;
 }
 
@@ -5199,39 +5229,39 @@ main {
   order: 4;
 }
 
-.tools-section {
+.process-section {
   order: 5;
 }
 
-.services-section {
+.about-section {
   order: 6;
 }
 
-.projects-section {
+.work-collections-section {
   order: 7;
 }
 
-.yumco-section {
+.merch-section {
   order: 8;
 }
 
-.merch-section {
+.photography-section {
   order: 9;
 }
 
-.photography-section {
+.feedback-section {
   order: 10;
 }
 
-.feedback-section {
+.faq-section {
   order: 11;
 }
 
-.faq-section {
+.contact-section {
   order: 12;
 }
 
-.contact-section {
+.tools-section {
   order: 13;
 }
 
@@ -5255,27 +5285,10 @@ main {
   order: 18;
 }
 
-.yumco-section {
-  background-image:
-    linear-gradient(135deg, rgba(0, 0, 0, .86), rgba(24, 24, 35, .9)),
-    url("./assets/bg-purple.jpg");
-  border-top: 1px solid var(--line);
-}
-
-.yumco-section .copy-panel .overline {
-  color: var(--cyan);
-  display: block;
-  font-size: .76rem;
-  font-weight: 900;
-  letter-spacing: .14em;
-  margin: 0 0 14px;
-  text-transform: uppercase;
-}
-
 .quick-inquiry-form {
   gap: 12px;
   margin: 24px 0 22px;
-  padding: 18px;
+  padding: 16px;
 }
 
 .quick-inquiry-form .button {
