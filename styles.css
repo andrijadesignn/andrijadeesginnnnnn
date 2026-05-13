@@ -2647,6 +2647,81 @@ textarea {
   transform: translateY(-6px);
 }
 
+.merch-preview-grid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.merch-preview-card {
+  background:
+    linear-gradient(180deg, rgba(24, 24, 35, .9), rgba(5, 5, 10, .96)),
+    var(--level-1);
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color .3s ease, transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+
+.merch-preview-card:hover {
+  border-color: rgba(0, 255, 255, .32);
+  box-shadow: 0 24px 70px rgba(82, 33, 230, .14);
+  transform: translateY(-5px);
+}
+
+.merch-preview-card img {
+  aspect-ratio: 1 / 1;
+  background: #08080d;
+  display: block;
+  object-fit: contain;
+  padding: 18px;
+  width: 100%;
+}
+
+.merch-preview-card div {
+  padding: 22px;
+}
+
+.merch-preview-card span {
+  color: var(--cyan);
+  display: block;
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.merch-preview-card h3 {
+  color: var(--white);
+  font-size: 1.25rem;
+  line-height: 1.15;
+  margin: 0 0 10px;
+}
+
+.merch-preview-card p {
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.merch-preview-cta {
+  display: inline-flex;
+  margin-top: 32px;
+}
+
+.merch-catalog-hero {
+  background-image:
+    linear-gradient(90deg, rgba(0, 0, 0, .28), rgba(0, 0, 0, .86)),
+    url("./assets/bg-purple.jpg");
+  padding-bottom: 96px;
+  padding-top: 96px;
+}
+
+.merch-catalog-page {
+  order: initial;
+}
+
 .merch-card img {
   aspect-ratio: 1 / 1;
   background:
@@ -4220,6 +4295,7 @@ textarea {
   .process-grid,
   .skills-grid,
   .merch-grid,
+  .merch-preview-grid,
   .service-grid {
     grid-template-columns: 1fr;
   }
