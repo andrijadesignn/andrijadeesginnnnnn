@@ -2521,11 +2521,16 @@ textarea {
   min-height: 1.5em;
 }
 
-.order-disclaimer {
+.order-disclaimer,
+.shipping-note {
   color: var(--muted);
   font-size: .88rem;
   line-height: 1.55;
   margin: 2px 0 0;
+}
+
+.shipping-note {
+  color: rgba(255, 255, 255, .58);
 }
 
 .form-note a {

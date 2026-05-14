@@ -1369,8 +1369,8 @@ orderForm?.addEventListener("submit", async (event) => {
   const shippingAddress = payload.shippingAddress || "";
   const message = payload.message || "";
 
-  if (!product || !name || !contact || !phone || !country || !city || !shippingAddress || !quantity) {
-    orderNote.textContent = "Please fill in product, quantity, name, email, phone, country, city and shipping address.";
+  if (!product || !name || !contact || !country || !city || !shippingAddress || !quantity) {
+    orderNote.textContent = "Please fill in product, quantity, name, email, country, city and shipping address.";
     return;
   }
 
@@ -1385,7 +1385,7 @@ orderForm?.addEventListener("submit", async (event) => {
     "Customer:",
     `Name: ${name}`,
     `Email: ${contact}`,
-    `Contact phone: ${phone}`,
+    `Contact phone: ${phone || "Not added"}`,
     `Country: ${country}`,
     `City: ${city}`,
     `Postal code: ${postalCode || "Not added"}`,

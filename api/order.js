@@ -102,8 +102,8 @@ module.exports = async function handler(req, res) {
   const shippingAddress = String(body.shippingAddress || "").trim();
   const message = String(body.message || "No note added.").trim();
 
-  if (!product || !name || !customerEmail || !phone || !country || !city || !shippingAddress) {
-    return res.status(400).json({ message: "Product, name, email, phone, country, city and shipping address are required." });
+  if (!product || !name || !customerEmail || !country || !city || !shippingAddress) {
+    return res.status(400).json({ message: "Product, name, valid email, country, city and shipping address are required." });
   }
 
   const rows = [
@@ -116,7 +116,7 @@ module.exports = async function handler(req, res) {
     ["Preferred payment", payment],
     ["Name", name],
     ["Email address", contact],
-    ["Contact phone", phone],
+    ["Contact phone", phone || "Not added"],
     ["Country", country],
     ["City", city],
     ["Postal code", postalCode],
