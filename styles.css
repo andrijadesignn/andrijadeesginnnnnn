@@ -2742,11 +2742,11 @@ textarea {
   width: 100%;
 }
 
-.merch-preview-card div {
+.merch-preview-card > div {
   padding: 22px;
 }
 
-.merch-preview-card span {
+.merch-preview-card > div > span {
   color: var(--cyan);
   display: block;
   font-size: .72rem;
@@ -2767,6 +2767,82 @@ textarea {
   color: var(--muted);
   line-height: 1.65;
   margin: 0;
+}
+
+.merch-pricing {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .045), rgba(0, 0, 0, .18)),
+    rgba(0, 0, 0, .22);
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: var(--radius);
+  display: grid;
+  gap: 10px;
+  margin: 18px 0;
+  padding: 14px;
+  position: relative;
+  transition: border-color .3s ease, box-shadow .35s var(--ease), transform .35s var(--ease);
+}
+
+.merch-preview-card:hover .merch-pricing,
+.merch-card:hover .merch-pricing {
+  border-color: rgba(0, 255, 255, .2);
+  box-shadow: 0 18px 48px rgba(0, 255, 255, .06);
+  transform: translateY(-2px);
+}
+
+.merch-price-row {
+  align-items: baseline;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.merch-price-row span {
+  color: rgba(255, 255, 255, .58);
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.merch-price-row del {
+  color: rgba(255, 255, 255, .48);
+  font-size: .92rem;
+  font-weight: 800;
+  text-decoration-color: rgba(255, 0, 115, .72);
+  text-decoration-thickness: 2px;
+}
+
+.merch-price-row strong {
+  color: var(--white);
+  font-size: clamp(1.18rem, 2vw, 1.5rem);
+  font-weight: 900;
+  letter-spacing: .01em;
+  text-align: right;
+}
+
+.discount-badge {
+  align-self: start;
+  background: rgba(0, 255, 255, .09);
+  border: 1px solid rgba(0, 255, 255, .24);
+  border-radius: 999px;
+  color: var(--cyan);
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  padding: 6px 9px;
+  position: absolute;
+  right: 12px;
+  text-transform: uppercase;
+  top: -12px;
+}
+
+.merch-pricing-note {
+  color: rgba(255, 255, 255, .54);
+  font-size: .86rem;
+  line-height: 1.6;
+  margin: 18px 0 0;
+  max-width: 720px;
 }
 
 .merch-preview-cta {
@@ -4779,6 +4855,21 @@ textarea {
   .project-actions {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .merch-pricing {
+    gap: 12px;
+    padding: 14px 12px;
+  }
+
+  .merch-price-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .merch-price-row strong {
+    text-align: left;
   }
 
   .merch-order-panel {

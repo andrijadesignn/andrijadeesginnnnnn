@@ -798,17 +798,14 @@ async function submitToEndpoint(endpoint, payload) {
 
 function getSelectedOrder() {
   const product = String(orderProduct?.value || "");
-  const price = String(orderPrice?.value || "Custom quote");
+  const price = String(orderPrice?.value || "Price on request");
   const quantity = Math.max(Number(orderQuantity?.value || 1), 1);
-  const unit = Number(price.match(/\d+([.,]\d+)?/)?.[0]?.replace(",", ".") || 0);
-  const currency = price.replace(/[\d\s.,]/g, "").trim() || "EUR";
-  const total = unit * quantity;
 
   return {
     product,
     price,
     quantity,
-    totalLabel: unit ?`${total} ${currency}` : price
+    totalLabel: quantity > 1 ? `${quantity} x ${price}` : price
   };
 }
 
@@ -818,7 +815,7 @@ function updateOrderSummary() {
   const order = getSelectedOrder();
   orderSummary.innerHTML = `
     <span>Selected: ${order.product || "Choose product"}</span>
-    <strong>${order.price && order.price !== "Custom quote" ? `Estimated total: ${order.totalLabel}` : "Custom quote"}</strong>
+    <strong>${order.totalLabel}</strong>
     <small>Size: ${orderSize?.value || "Not selected"} · Quantity: ${order.quantity} · Color: ${orderColor?.value || "To be confirmed"}. Final scope, production and delivery details are confirmed directly.</small>
   `;
 }
@@ -827,7 +824,7 @@ function openOrderModal({ product, price, size, color, quantity }) {
   if (!merchOrderModal || !orderForm) return;
 
   if (orderProduct) orderProduct.value = product || "";
-  if (orderPrice) orderPrice.value = price || "Custom quote";
+  if (orderPrice) orderPrice.value = price || "Price on request";
   if (orderSize) orderSize.value = size || "M";
   if (orderColor) orderColor.value = color || "Black";
   if (orderQuantity) orderQuantity.value = Math.max(Number(quantity || 1), 1);
@@ -1297,7 +1294,7 @@ quickInquiryForm?.addEventListener("submit", async (event) => {
 document.querySelectorAll("[data-order-product]").forEach((button) => {
   button.addEventListener("click", () => {
     const product = button.dataset.orderProduct || "";
-    const price = button.dataset.orderPrice || "Custom quote";
+    const price = button.dataset.orderPrice || "Price on request";
     const card = button.closest(".merch-card");
     const size = card?.querySelector("[data-product-size]")?.value || (product.toLowerCase().includes("badge") ?"One size" : "M");
     const color = card?.querySelector("[data-product-color]")?.value || "Black";
@@ -1324,7 +1321,7 @@ orderForm?.addEventListener("submit", async (event) => {
   const data = new FormData(orderForm);
   const payload = formDataToObject(data);
   const product = String(payload.product || "").trim();
-  const price = String(payload.price || "Custom quote").trim();
+  const price = String(payload.price || "Price on request").trim();
   const order = getSelectedOrder();
   const size = payload.size || "";
   const quantity = payload.quantity || "1";
@@ -1342,7 +1339,7 @@ orderForm?.addEventListener("submit", async (event) => {
   const orderMessage = [
     `Product: ${product}`,
     `Price: ${price}`,
-    `Estimated total: ${order.totalLabel}`,
+    `Quantity price note: ${order.totalLabel}`,
     `Size: ${size}`,
     `Quantity: ${quantity}`,
     `Color preference: ${color || "Not added"}`,
