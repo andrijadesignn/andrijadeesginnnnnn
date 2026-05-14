@@ -15,6 +15,10 @@ function parsePrice(value = "") {
   return Math.round(amount * 100);
 }
 
+function isEmail(value = "") {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value).trim());
+}
+
 async function sendEmail({ to, subject, html, replyTo }) {
   if (!process.env.RESEND_API_KEY) {
     // Developer note: add RESEND_API_KEY in Vercel Environment Variables to enable automatic merch order emails.
@@ -89,20 +93,13 @@ module.exports = async function handler(req, res) {
   const color = String(body.colorPreference || body.color || "Not added").trim();
   const payment = String(body.preferredPayment || body.payment || "To be confirmed").trim();
   const name = String(body.name || "").trim();
-  const email = String(body.contact || "").trim();
-  const phone = String(body.phone || "").trim();
-  const instagram = String(body.instagram || "Not added").trim();
-  const country = String(body.country || "").trim();
-  const shippingAddress = String(body.shippingAddress || "").trim();
-  const city = String(body.city || "").trim();
-  const street = String(body.street || "").trim();
-  const streetNumber = String(body.streetNumber || "").trim();
-  const postal = String(body.postal || "").trim();
-  const apartment = String(body.apartment || "Not added").trim();
+  const contact = String(body.contact || "").trim();
+  const customerEmail = isEmail(contact) ? contact : "";
+  const cityCountry = String(body.cityCountry || "").trim();
   const message = String(body.message || "No note added.").trim();
 
-  if (!product || !name || !email || !phone || !country || !shippingAddress) {
-    return res.status(400).json({ message: "Product, name, email, phone, country and shipping address are required." });
+  if (!product || !name || !contact || !cityCountry) {
+    return res.status(400).json({ message: "Product, name, email or Instagram, and city / country are required." });
   }
 
   const rows = [
@@ -114,16 +111,8 @@ module.exports = async function handler(req, res) {
     ["Color preference", color],
     ["Preferred payment", payment],
     ["Name", name],
-    ["Email", email],
-    ["Phone", phone],
-    ["Instagram", instagram],
-    ["Country", country || "Not added"],
-    ["Shipping address", shippingAddress || "Not added"],
-    ["City", city || "Not added"],
-    ["Street", street || "Not added"],
-    ["Street number", streetNumber || "Not added"],
-    ["Postal code", postal || "Not added"],
-    ["Apartment / floor", apartment || "Not added"],
+    ["Email or Instagram", contact],
+    ["City / Country", cityCountry],
     ["Additional note", message]
   ];
 
@@ -143,19 +132,21 @@ module.exports = async function handler(req, res) {
       to: OWNER_EMAIL,
       subject: "New Merch Order Request",
       html: `<h2>New Merch Order Request</h2>${table}`,
-      replyTo: email
+      replyTo: customerEmail || OWNER_EMAIL
     });
 
-    await sendEmail({
-      to: email,
-      subject: "Your Merch Order Request Has Been Received",
-      html: `<h2>Your Merch Order Request Has Been Received</h2><p>Hi ${escapeHtml(name)}, your order request has been received. I will confirm availability, shipping and payment details shortly.</p>${table}`,
-      replyTo: OWNER_EMAIL
-    });
+    if (customerEmail) {
+      await sendEmail({
+        to: customerEmail,
+        subject: "Your Merch Order Request Has Been Received",
+        html: `<h2>Your Merch Order Request Has Been Received</h2><p>Hi ${escapeHtml(name)}, your order request has been received. I will confirm availability, final price, payment and production details shortly.</p>${table}`,
+        replyTo: OWNER_EMAIL
+      });
+    }
 
     const wantsOnlinePayment = payment.toLowerCase().includes("online");
     const paymentUrl = wantsOnlinePayment
-      ? await createStripeCheckout({ product, price, quantity, customerEmail: email })
+      ? await createStripeCheckout({ product, price, quantity, customerEmail: customerEmail })
       : "";
 
     return res.status(200).json({ ok: true, paymentUrl });

@@ -879,7 +879,7 @@ body::before {
   margin-top: 28px;
 }
 
-.service-card a {
+.service-card a:not(.button) {
   color: var(--white);
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -1538,6 +1538,8 @@ textarea {
   line-height: 1;
   min-height: 48px;
   padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
   text-transform: uppercase;
   transition: background-color .25s ease, border-color .25s ease, box-shadow .35s var(--ease), transform .35s var(--ease);
 }
@@ -1903,7 +1905,7 @@ textarea {
 .service-grid {
   display: grid;
   gap: 24px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .service-card {
@@ -1984,9 +1986,35 @@ textarea {
 }
 
 .service-button {
+  background: rgba(255, 255, 255, .94);
+  border: 1px solid rgba(255, 255, 255, .28);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .22);
+  color: #050508;
+  font-size: .78rem;
+  font-weight: 900;
+  justify-self: stretch;
+  letter-spacing: .08em;
+  line-height: 1.18;
   margin-top: auto;
-  min-height: 46px;
+  min-height: 54px;
+  padding: 14px 16px;
+  text-decoration: none;
   width: 100%;
+}
+
+.service-button:hover,
+.service-button:focus-visible {
+  background: var(--cyan);
+  border-color: var(--cyan);
+  box-shadow: 0 24px 70px rgba(125, 219, 226, .18);
+  color: #050508;
+}
+
+.merch-preview-order {
+  font-size: .72rem;
+  margin-top: 14px;
+  min-height: 44px;
+  padding: 12px 14px;
 }
 
 .projects-grid {
@@ -2482,6 +2510,13 @@ textarea {
   font-size: .95rem;
   margin: 12px 0 0;
   min-height: 1.5em;
+}
+
+.order-disclaimer {
+  color: var(--muted);
+  font-size: .88rem;
+  line-height: 1.55;
+  margin: 2px 0 0;
 }
 
 .form-note a {

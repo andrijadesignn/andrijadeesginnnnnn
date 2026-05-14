@@ -16,8 +16,7 @@ const orderPrice = document.querySelector("#order-price");
 const orderSize = document.querySelector("#order-size");
 const orderQuantity = document.querySelector("#order-qty");
 const orderColor = document.querySelector("#order-color");
-const orderCountry = document.querySelector("#order-country");
-const orderShipping = document.querySelector("#order-shipping");
+const orderCityCountry = document.querySelector("#order-city-country");
 const orderSummary = document.querySelector("[data-order-summary]");
 const merchOrderModal = document.querySelector("[data-merch-order-modal]");
 const projectModal = document.querySelector("[data-project-modal]");
@@ -1250,14 +1249,12 @@ orderForm?.addEventListener("submit", async (event) => {
   const quantity = payload.quantity || "1";
   const color = payload.color || "";
   const name = payload.name || "";
-  const phone = payload.phone || "";
   const contact = payload.contact || "";
-  const country = payload.country || "";
-  const shippingAddress = payload.shippingAddress || "";
+  const cityCountry = payload.cityCountry || "";
   const message = payload.message || "";
 
-  if (!product || !name || !phone || !contact || !country || !shippingAddress || !quantity) {
-    orderNote.textContent = "Please fill in product, name, email, phone, country, shipping address and quantity.";
+  if (!product || !name || !contact || !cityCountry || !quantity) {
+    orderNote.textContent = "Please fill in product, quantity, name, email or Instagram, and city / country.";
     return;
   }
 
@@ -1271,12 +1268,10 @@ orderForm?.addEventListener("submit", async (event) => {
     "",
     "Customer:",
     `Name: ${name}`,
-    `Phone: ${phone}`,
-    `Email: ${contact}`,
-    `Country: ${country}`,
-    `Shipping address: ${shippingAddress}`,
+    `Email or Instagram: ${contact}`,
+    `City / Country: ${cityCountry}`,
     "",
-    "Notes:",
+    "Additional note:",
     message || "No note added."
   ].join("\n");
   const button = orderForm.querySelector("button[type='submit']");
@@ -1299,7 +1294,7 @@ orderForm?.addEventListener("submit", async (event) => {
         window.location.href = result.paymentUrl;
       }, 1200);
     } else {
-      orderNote.textContent = "Thank you. Your order request has been sent. I will confirm availability, shipping and payment details shortly.";
+      orderNote.textContent = "Thank you. Your order request has been sent. I will confirm availability, final price, payment and production details shortly.";
     }
   } catch (error) {
     orderNote.textContent = "Order could not be sent right now. Please try again or contact me on Instagram.";
