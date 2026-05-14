@@ -76,7 +76,7 @@
 .process-card,
 .service-card,
 .merch-card,
-.faq-list details,
+.faq-item,
 .contact-form,
 .order-form,
 .mini-form input,
@@ -155,7 +155,7 @@
 
 .service-card p,
 .merch-card p,
-.faq-list p {
+.faq-panel p {
   line-height: 1.7;
 }
 
@@ -256,16 +256,12 @@
   outline: 0;
 }
 
-.faq-list details {
+.faq-item {
   background:
     linear-gradient(135deg, rgba(24, 24, 35, .84), rgba(5, 5, 10, .94)),
     var(--level-1);
   border-radius: var(--radius);
   overflow: hidden;
-}
-
-.faq-list summary {
-  cursor: pointer;
 }
 
 .feedback-section {
@@ -455,7 +451,7 @@ body::before {
 .merch-card,
 .contact-form,
 .order-form,
-.faq-list details,
+.faq-item,
 .feedback-card {
   background:
     linear-gradient(180deg, rgba(24, 24, 35, .74), rgba(6, 6, 10, .96)),
@@ -3347,43 +3343,104 @@ textarea {
   gap: 14px;
 }
 
-.faq-list details {
+.faq-item {
   background: rgba(24, 24, 35, .7);
   border: 1px solid rgba(255, 255, 255, .09);
   border-radius: var(--radius);
+  overflow: hidden;
   padding: 0;
 }
 
-.faq-list summary {
+.faq-question {
+  align-items: center;
+  background: transparent;
+  border: 0;
   color: var(--white);
   cursor: pointer;
+  display: flex;
+  font: inherit;
   font-size: 1.05rem;
   font-weight: 800;
-  list-style: none;
+  gap: 20px;
+  justify-content: space-between;
+  line-height: 1.35;
   padding: 22px 24px;
+  text-align: left;
+  width: 100%;
 }
 
-.faq-list summary::-webkit-details-marker {
-  display: none;
+.faq-question:focus-visible {
+  outline: 2px solid rgba(0, 255, 255, .72);
+  outline-offset: -4px;
 }
 
-.faq-list summary::after {
-  color: var(--cyan);
-  content: "+";
-  float: right;
-  font-size: 1.4rem;
-  line-height: 1;
+.faq-icon {
+  border: 1px solid rgba(0, 255, 255, .34);
+  border-radius: 999px;
+  display: inline-grid;
+  flex: 0 0 30px;
+  height: 30px;
+  place-items: center;
+  transition: border-color .3s ease, transform .3s var(--ease), background .3s ease;
+  width: 30px;
 }
 
-.faq-list details[open] summary::after {
-  content: "-";
+.faq-icon::before,
+.faq-icon::after {
+  background: var(--cyan);
+  content: "";
+  grid-area: 1 / 1;
+  height: 2px;
+  transition: opacity .25s ease, transform .3s var(--ease);
+  width: 12px;
 }
 
-.faq-list p {
+.faq-icon::after {
+  transform: rotate(90deg);
+}
+
+.faq-item.is-open .faq-icon {
+  background: rgba(0, 255, 255, .08);
+  border-color: rgba(0, 255, 255, .62);
+  transform: rotate(180deg);
+}
+
+.faq-item.is-open .faq-icon::after {
+  opacity: 0;
+  transform: rotate(90deg) scaleX(.2);
+}
+
+.faq-panel {
   border-top: 1px solid rgba(255, 255, 255, .08);
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-6px);
+  transition: max-height .32s var(--ease), opacity .26s ease, transform .32s var(--ease);
+  will-change: max-height, opacity, transform;
+}
+
+.faq-item.is-open .faq-panel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.faq-panel__inner {
+  padding: 0 24px 24px;
+}
+
+.faq-panel p {
   color: var(--muted);
   margin: 0;
-  padding: 0 24px 24px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-icon,
+  .faq-icon::before,
+  .faq-icon::after,
+  .faq-panel {
+    transition: none;
+  }
 }
 
 .feedback-section {
@@ -4840,7 +4897,7 @@ textarea {
 .process-card,
 .service-card,
 .merch-card,
-.faq-list details,
+.faq-item,
 .contact-form,
 .order-form,
 .tool-stack span {
@@ -4873,7 +4930,7 @@ textarea {
 
 .service-card p,
 .merch-card p,
-.faq-list p {
+.faq-panel p {
   line-height: 1.7;
 }
 
@@ -4916,7 +4973,7 @@ textarea {
   outline: 0;
 }
 
-.faq-list details {
+.faq-item {
   background:
     linear-gradient(135deg, rgba(24, 24, 35, .84), rgba(5, 5, 10, .94)),
     var(--level-1);
