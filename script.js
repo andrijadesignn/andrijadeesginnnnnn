@@ -16,7 +16,6 @@ const orderPrice = document.querySelector("#order-price");
 const orderSize = document.querySelector("#order-size");
 const orderQuantity = document.querySelector("#order-qty");
 const orderColor = document.querySelector("#order-color");
-const orderCityCountry = document.querySelector("#order-city-country");
 const orderSummary = document.querySelector("[data-order-summary]");
 const merchOrderModal = document.querySelector("[data-merch-order-modal]");
 const projectModal = document.querySelector("[data-project-modal]");
@@ -1363,11 +1362,15 @@ orderForm?.addEventListener("submit", async (event) => {
   const color = payload.color || "";
   const name = payload.name || "";
   const contact = payload.contact || "";
-  const cityCountry = payload.cityCountry || "";
+  const phone = payload.phone || "";
+  const country = payload.country || "";
+  const city = payload.city || "";
+  const postalCode = payload.postalCode || "";
+  const shippingAddress = payload.shippingAddress || "";
   const message = payload.message || "";
 
-  if (!product || !name || !contact || !cityCountry || !quantity) {
-    orderNote.textContent = "Please fill in product, quantity, name, email or Instagram, and city / country.";
+  if (!product || !name || !contact || !phone || !country || !city || !shippingAddress || !quantity) {
+    orderNote.textContent = "Please fill in product, quantity, name, email, phone, country, city and shipping address.";
     return;
   }
 
@@ -1381,8 +1384,12 @@ orderForm?.addEventListener("submit", async (event) => {
     "",
     "Customer:",
     `Name: ${name}`,
-    `Email or Instagram: ${contact}`,
-    `City / Country: ${cityCountry}`,
+    `Email: ${contact}`,
+    `Contact phone: ${phone}`,
+    `Country: ${country}`,
+    `City: ${city}`,
+    `Postal code: ${postalCode || "Not added"}`,
+    `Shipping address: ${shippingAddress}`,
     "",
     "Additional note:",
     message || "No note added."
@@ -1410,7 +1417,7 @@ orderForm?.addEventListener("submit", async (event) => {
       orderNote.textContent = "Thank you. Your order request has been sent. I will confirm availability, final price, payment and production details shortly.";
     }
   } catch (error) {
-    orderNote.textContent = "Order could not be sent right now. Please try again or contact me on Instagram.";
+    orderNote.textContent = "Order could not be sent right now. Please try again or contact me by email.";
   } finally {
     button.disabled = false;
   }

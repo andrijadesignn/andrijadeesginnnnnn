@@ -320,14 +320,34 @@
           <input id="order-name" name="name" type="text" autocomplete="name" required>
         </div>
         <div>
-          <label for="order-contact">Email or Instagram</label>
-          <input id="order-contact" name="contact" type="text" autocomplete="email" required>
+          <label for="order-contact">Email address</label>
+          <input id="order-contact" name="contact" type="email" autocomplete="email" placeholder="your@email.com" required>
         </div>
       </div>
-      <label for="order-city-country">City / Country</label>
-      <input id="order-city-country" name="cityCountry" type="text" autocomplete="address-level2 country-name" required>
+      <div class="form-row">
+        <div>
+          <label for="order-phone">Contact phone</label>
+          <input id="order-phone" name="phone" type="tel" autocomplete="tel" placeholder="+381 ..." required>
+        </div>
+        <div>
+          <label for="order-country">Country</label>
+          <input id="order-country" name="country" type="text" autocomplete="country-name" placeholder="Serbia" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="order-city">City</label>
+          <input id="order-city" name="city" type="text" autocomplete="address-level2" placeholder="Leskovac" required>
+        </div>
+        <div>
+          <label for="order-postal">Postal code</label>
+          <input id="order-postal" name="postalCode" type="text" autocomplete="postal-code" placeholder="Optional">
+        </div>
+      </div>
+      <label for="order-address">Shipping address</label>
+      <input id="order-address" name="shippingAddress" type="text" autocomplete="street-address" placeholder="Street, number, apartment / floor" required>
       <label for="order-message">Additional note</label>
-      <textarea id="order-message" name="message" rows="4" placeholder="Add delivery notes, preferred contact method or extra product details."></textarea>
+      <textarea id="order-message" name="message" rows="4" placeholder="Add delivery notes, size details or any extra request."></textarea>
       <button class="button form-button" type="submit">Send Order Request</button>
       <p class="order-disclaimer">Orders are confirmed manually before payment and production. Final price may depend on size, quantity, delivery location and product availability. EUR prices are approximate and may vary slightly depending on the exchange rate and payment method.</p>
       <p class="form-note" data-order-note aria-live="polite"></p>

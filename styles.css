@@ -2479,14 +2479,23 @@ textarea {
 .order-form input,
 .order-form select,
 .order-form textarea {
-  background: var(--level-1);
-  border: 1px solid transparent;
+  background: rgba(18, 18, 28, .92);
+  border: 1px solid rgba(255, 255, 255, .08);
   border-radius: var(--radius-sm);
   color: var(--white);
   outline: 0;
   padding: 14px 16px;
   transition: border-color .2s ease, background-color .2s ease;
   width: 100%;
+}
+
+.contact-form input:-webkit-autofill,
+.contact-form textarea:-webkit-autofill,
+.order-form input:-webkit-autofill,
+.order-form textarea:-webkit-autofill {
+  -webkit-text-fill-color: var(--white);
+  box-shadow: 0 0 0 1000px #181823 inset;
+  caret-color: var(--white);
 }
 
 .mini-form input {

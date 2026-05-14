@@ -95,11 +95,15 @@ module.exports = async function handler(req, res) {
   const name = String(body.name || "").trim();
   const contact = String(body.contact || "").trim();
   const customerEmail = isEmail(contact) ? contact : "";
-  const cityCountry = String(body.cityCountry || "").trim();
+  const phone = String(body.phone || "").trim();
+  const country = String(body.country || "").trim();
+  const city = String(body.city || "").trim();
+  const postalCode = String(body.postalCode || "Not added").trim();
+  const shippingAddress = String(body.shippingAddress || "").trim();
   const message = String(body.message || "No note added.").trim();
 
-  if (!product || !name || !contact || !cityCountry) {
-    return res.status(400).json({ message: "Product, name, email or Instagram, and city / country are required." });
+  if (!product || !name || !customerEmail || !phone || !country || !city || !shippingAddress) {
+    return res.status(400).json({ message: "Product, name, email, phone, country, city and shipping address are required." });
   }
 
   const rows = [
@@ -111,8 +115,12 @@ module.exports = async function handler(req, res) {
     ["Color preference", color],
     ["Preferred payment", payment],
     ["Name", name],
-    ["Email or Instagram", contact],
-    ["City / Country", cityCountry],
+    ["Email address", contact],
+    ["Contact phone", phone],
+    ["Country", country],
+    ["City", city],
+    ["Postal code", postalCode],
+    ["Shipping address", shippingAddress],
     ["Additional note", message]
   ];
 
