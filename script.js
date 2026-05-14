@@ -939,7 +939,7 @@ function openWorkCollection(key) {
   workGallery.innerHTML = collection.items.map((item) => `
     <article class="project-card" data-project-title="${item.title}" data-project-image="${item.image}" data-project-link="https://www.behance.net/andrijadesign" data-project-format="${item.format || "portrait"}">
       <button class="project-image-button" type="button" data-open-project aria-label="View full ${item.title}">
-        <img src="${item.image}" alt="${item.title}" loading="lazy" decoding="async">
+        <img src="${item.image}" alt="${item.title} graphic design project by Andrija Živković" loading="lazy" decoding="async">
       </button>
       <div>
         <span class="project-kicker">${collection.title}</span>
