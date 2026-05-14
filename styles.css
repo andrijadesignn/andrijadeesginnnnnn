@@ -1927,6 +1927,10 @@ textarea {
   transform: translateY(-6px);
 }
 
+.service-card:last-child {
+  grid-column: 2;
+}
+
 .service-card span {
   color: var(--magenta);
   display: block;
@@ -4216,6 +4220,10 @@ textarea {
     grid-template-columns: 1fr 1fr;
   }
 
+  .service-card:last-child {
+    grid-column: auto;
+  }
+
   .merch-category__head {
     align-items: flex-start;
     flex-direction: column;
@@ -5276,19 +5284,19 @@ main {
   order: 7;
 }
 
-.merch-section {
+.feedback-section {
   order: 8;
 }
 
-.photography-section {
+.faq-section {
   order: 9;
 }
 
-.feedback-section {
+.merch-section {
   order: 10;
 }
 
-.faq-section {
+.photography-section {
   order: 11;
 }
 
