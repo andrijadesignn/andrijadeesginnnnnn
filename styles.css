@@ -3591,8 +3591,17 @@ textarea {
   animation: feedbackReel 64s linear infinite;
   display: flex;
   gap: 18px;
+  transition: opacity .3s ease, gap .3s ease;
   width: max-content;
   will-change: transform;
+}
+
+.feedback-track.is-expanded {
+  animation-duration: 96s;
+}
+
+.feedback-track.is-switching {
+  opacity: .35;
 }
 
 .feedback-carousel:hover .feedback-track {
@@ -3615,6 +3624,7 @@ textarea {
   padding: 36px;
   position: relative;
   transform: translateY(0);
+  transition: border-color .3s ease, box-shadow .35s var(--ease), opacity .28s ease, transform .35s var(--ease);
 }
 
 .feedback-card.is-hidden {
@@ -3663,6 +3673,10 @@ textarea {
   margin: 34px auto 0;
   position: relative;
   z-index: 5;
+}
+
+.feedback-more[aria-expanded="true"] {
+  border-color: rgba(0, 255, 255, .48);
 }
 
 @keyframes feedbackReel {
@@ -3768,6 +3782,7 @@ textarea {
 .footer-links a {
   color: var(--white);
   transition: color .25s ease;
+  overflow-wrap: anywhere;
 }
 
 .footer-links a:hover,
@@ -4725,6 +4740,20 @@ textarea {
     min-height: 320px;
   }
 
+  .feedback-card:nth-child(3n + 2),
+  .feedback-card:nth-child(3n) {
+    transform: translateY(0);
+  }
+
+  .feedback-track {
+    gap: 14px;
+  }
+
+  .feedback-more {
+    margin-top: 24px;
+    width: calc(100% - 40px);
+  }
+
   .footer-grid {
     grid-template-columns: 1fr;
   }
@@ -4840,7 +4869,7 @@ textarea {
 
   .feedback-card {
     flex-basis: 82vw;
-    min-height: 300px;
+    min-height: 280px;
   }
 
   .photo-frame,

@@ -1098,16 +1098,24 @@ function renderFeedback(expanded = false) {
 
   if (feedbackMore) {
     feedbackMore.textContent = expanded ? "Show Less Feedback" : "View More Feedback";
+    feedbackMore.setAttribute("aria-expanded", String(expanded));
   }
+
+  feedbackTrack.classList.toggle("is-expanded", expanded);
 }
 
 if (feedbackTrack && feedbackCards.length) {
   let feedbackExpanded = false;
+  feedbackMore?.setAttribute("aria-expanded", "false");
   renderFeedback(false);
 
   feedbackMore?.addEventListener("click", () => {
     feedbackExpanded = !feedbackExpanded;
-    renderFeedback(feedbackExpanded);
+    feedbackTrack.classList.add("is-switching");
+    window.setTimeout(() => {
+      renderFeedback(feedbackExpanded);
+      feedbackTrack.classList.remove("is-switching");
+    }, 160);
   });
 }
 
