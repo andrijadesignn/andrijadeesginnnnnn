@@ -796,16 +796,51 @@ async function submitToEndpoint(endpoint, payload) {
   return result;
 }
 
+function formatRsdPrice(value) {
+  return Math.round(value).toLocaleString("sr-RS").replace(/\./g, ".");
+}
+
+function formatEuroPrice(value) {
+  return Number.isInteger(value) ? String(value) : value.toFixed(2);
+}
+
+function calculateMerchTotal(price, quantity) {
+  const rsdMatch = price.match(/([\d.]+)\s*RSD/i);
+  const eurMatch = price.match(/€\s*([\d.]+)/);
+
+  if (!rsdMatch && !eurMatch) return quantity > 1 ? `${quantity} x ${price}` : price;
+
+  const parts = [];
+
+  if (rsdMatch) {
+    const rsdUnit = Number(rsdMatch[1].replace(/\./g, ""));
+    if (Number.isFinite(rsdUnit)) {
+      parts.push(`${formatRsdPrice(rsdUnit * quantity)} RSD`);
+    }
+  }
+
+  if (eurMatch) {
+    const eurUnit = Number(eurMatch[1]);
+    if (Number.isFinite(eurUnit)) {
+      parts.push(`€${formatEuroPrice(eurUnit * quantity)}`);
+    }
+  }
+
+  return parts.length ? parts.join(" / ") : price;
+}
+
 function getSelectedOrder() {
   const product = String(orderProduct?.value || "");
   const price = String(orderPrice?.value || "Price on request");
   const quantity = Math.max(Number(orderQuantity?.value || 1), 1);
+  const totalLabel = calculateMerchTotal(price, quantity);
 
   return {
     product,
     price,
     quantity,
-    totalLabel: quantity > 1 ? `${quantity} x ${price}` : price
+    totalLabel,
+    unitLabel: price
   };
 }
 
@@ -815,8 +850,8 @@ function updateOrderSummary() {
   const order = getSelectedOrder();
   orderSummary.innerHTML = `
     <span>Selected: ${order.product || "Choose product"}</span>
-    <strong>${order.totalLabel}</strong>
-    <small>Size: ${orderSize?.value || "Not selected"} · Quantity: ${order.quantity} · Color: ${orderColor?.value || "To be confirmed"}. Final scope, production and delivery details are confirmed directly.</small>
+    <strong>Total: ${order.totalLabel}</strong>
+    <small>Unit price: ${order.unitLabel} · Size: ${orderSize?.value || "Not selected"} · Quantity: ${order.quantity} · Color: ${orderColor?.value || "To be confirmed"}. Final scope, production and delivery details are confirmed directly.</small>
   `;
 }
 
