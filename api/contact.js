@@ -1,5 +1,6 @@
-const OWNER_EMAIL = process.env.OWNER_EMAIL || "andrijadesignnn@gmail.com";
-const FROM_EMAIL = process.env.MAIL_FROM || "Andrija Designs <onboarding@resend.dev>";
+const CONTACT_TO_EMAIL = process.env.CONTACT_TO_EMAIL || process.env.ORDER_TO_EMAIL || "andrijadesignnn@gmail.com";
+const FROM_EMAIL = process.env.RESEND_FROM;
+const SEND_CUSTOMER_CONFIRMATION = process.env.SEND_CUSTOMER_CONFIRMATION === "true";
 
 function escapeHtml(value = "") {
   return String(value)
@@ -14,6 +15,10 @@ async function sendEmail({ to, subject, html, replyTo }) {
   if (!process.env.RESEND_API_KEY) {
     // Developer note: add RESEND_API_KEY in Vercel Environment Variables to enable automatic project inquiry emails.
     throw new Error("Contact email service is not configured on the server.");
+  }
+
+  if (!FROM_EMAIL) {
+    throw new Error("RESEND_FROM is not configured on the server.");
   }
 
   const response = await fetch("https://api.resend.com/emails", {
@@ -33,7 +38,7 @@ async function sendEmail({ to, subject, html, replyTo }) {
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(errorText || "Email provider error");
+    throw new Error(`Resend email failed with status ${response.status}: ${errorText || "Email provider error"}`);
   }
 }
 
@@ -87,26 +92,40 @@ module.exports = async function handler(req, res) {
 
   try {
     await sendEmail({
-      to: OWNER_EMAIL,
+      to: CONTACT_TO_EMAIL,
       subject: "New Design Project Inquiry",
       html: ownerHtml,
       replyTo: isEmail ? contact : undefined
     });
-
-    if (isEmail) {
-      await sendEmail({
-        to: contact,
-        subject: "Your Project Inquiry Has Been Received",
-        html: clientHtml,
-        replyTo: OWNER_EMAIL
-      });
-    }
-
-    return res.status(200).json({ ok: true });
   } catch (error) {
+    console.error("Main contact email failed:", {
+      to: CONTACT_TO_EMAIL,
+      subject: "New Design Project Inquiry",
+      error: error.message
+    });
+
     return res.status(503).json({
       message: "Contact email could not be sent by the server.",
       detail: error.message
     });
   }
+
+  if (SEND_CUSTOMER_CONFIRMATION && isEmail) {
+    try {
+      await sendEmail({
+        to: contact,
+        subject: "Your Project Inquiry Has Been Received",
+        html: clientHtml,
+        replyTo: CONTACT_TO_EMAIL
+      });
+    } catch (error) {
+      console.error("Customer contact confirmation email failed:", {
+        to: contact,
+        subject: "Your Project Inquiry Has Been Received",
+        error: error.message
+      });
+    }
+  }
+
+  return res.status(200).json({ ok: true });
 };
